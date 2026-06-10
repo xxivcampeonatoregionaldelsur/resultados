@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Panel de Resultados — XXIV Campeonato Regional del Sur</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rojo:        #C8102E;
+  --rojo-oscuro: #8B0A1E;
+  --dorado:      #F0A500;
+  --dorado-claro:#FFD166;
+  --verde:       #27ae60;
+  --negro:       #0D0D0D;
+  --gris-oscuro: #1A1A2E;
+  --gris-med:    #2a2a3e;
+  --gris-claro:  #F4F4F6;
+  --blanco:      #FFFFFF;
+  --texto:       #2A2A2A;
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:15px; scroll-behavior:smooth; }
+body { font-family:'Barlow',sans-serif; background:#0f0f1a; color:var(--blanco); min-height:100vh; -webkit-font-smoothing:antialiased; }
+
+/* ── PANTALLA LOGIN ── */
+#loginScreen {
+  position:fixed; inset:0; background:linear-gradient(135deg,#08091a 0%,#1a0a0a 50%,#0a1200 100%);
+  display:flex; align-items:center; justify-content:center; z-index:900; padding:20px;
+}
+#loginScreen::before {
+  content:''; position:absolute; inset:0;
+  background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(240,165,0,0.015) 40px,rgba(240,165,0,0.015) 80px);
+  pointer-events:none;
+}
+.login-box {
+  background:rgba(26,26,46,0.95); border:1px solid rgba(240,165,0,0.25);
+  border-radius:16px; padding:44px 40px 36px; width:100%; max-width:420px;
+  box-shadow:0 24px 60px rgba(0,0,0,0.6); position:relative;
+  backdrop-filter:blur(12px);
+}
+.login-logo { text-align:center; margin-bottom:28px; }
+.login-logo .title { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:3px; color:var(--dorado); line-height:1.1; }
+.login-logo .sub { font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:#888; margin-top:4px; }
+.login-badge { display:inline-block; background:rgba(200,16,46,0.2); border:1px solid rgba(200,16,46,0.5); color:#ff6b7a; font-size:0.62rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:4px 12px; border-radius:20px; margin-bottom:24px; }
+.form-group { margin-bottom:16px; }
+.form-group label { display:block; font-size:0.68rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#aaa; margin-bottom:7px; }
+.form-input {
+  width:100%; padding:13px 16px; background:rgba(255,255,255,0.06); border:1.5px solid rgba(255,255,255,0.12);
+  border-radius:8px; color:var(--blanco); font-family:'Barlow',sans-serif; font-size:0.9rem;
+  outline:none; transition:border-color 0.2s;
+}
+.form-input:focus { border-color:var(--dorado); background:rgba(240,165,0,0.05); }
+.login-btn {
+  width:100%; padding:14px; background:var(--dorado); color:var(--negro);
+  border:none; border-radius:8px; font-family:'Barlow',sans-serif; font-size:0.85rem;
+  font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer;
+  margin-top:8px; transition:all 0.2s;
+}
+.login-btn:hover { background:var(--dorado-claro); transform:translateY(-1px); }
+.login-btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+.login-error { background:rgba(200,16,46,0.15); border:1px solid rgba(200,16,46,0.4); color:#ff8a95; padding:10px 14px; border-radius:6px; font-size:0.8rem; margin-top:12px; display:none; }
+.login-error.show { display:block; }
+
+/* ── APP PRINCIPAL ── */
+#app { display:none; min-height:100vh; }
+
+/* NAV */
+.topbar {
+  background:var(--negro); border-bottom:2px solid var(--dorado); padding:0 20px;
+  height:58px; display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:100;
+}
+.topbar-brand { font-family:'Bebas Neue',sans-serif; font-size:1.1rem; letter-spacing:2px; color:var(--dorado); }
+.topbar-brand span { color:#aaa; font-size:0.8rem; }
+.topbar-right { display:flex; align-items:center; gap:12px; }
+.user-pill { background:rgba(240,165,0,0.1); border:1px solid rgba(240,165,0,0.3); border-radius:20px; padding:5px 14px; font-size:0.7rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--dorado); }
+.logout-btn { background:transparent; border:1px solid rgba(255,255,255,0.2); color:#aaa; padding:5px 12px; border-radius:6px; font-size:0.7rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+.logout-btn:hover { border-color:var(--rojo); color:#ff8a95; }
+
+/* MAIN LAYOUT */
+.main { max-width:1100px; margin:0 auto; padding:28px 20px 60px; }
+
+/* TABS */
+.tabs-nav { display:flex; gap:6px; margin-bottom:28px; flex-wrap:wrap; }
+.tab-btn {
+  padding:10px 20px; background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1);
+  color:#aaa; border-radius:8px; font-family:'Barlow',sans-serif; font-size:0.75rem;
+  font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all 0.2s;
+}
+.tab-btn:hover { border-color:rgba(240,165,0,0.4); color:var(--dorado); }
+.tab-btn.active { background:var(--gris-oscuro); border-color:var(--dorado); color:var(--dorado); }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+
+/* SECTION HEADERS */
+.section-h { display:flex; align-items:center; gap:14px; margin-bottom:22px; }
+.section-h h2 { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:2px; color:var(--dorado); white-space:nowrap; }
+.section-h::after { content:''; flex:1; height:2px; background:rgba(240,165,0,0.25); }
+
+/* CARDS */
+.card {
+  background:rgba(26,26,46,0.7); border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px; padding:24px; margin-bottom:18px;
+  backdrop-filter:blur(6px);
+}
+.card-title { font-family:'Barlow Condensed',sans-serif; font-size:1rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#ccc; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+.card-title::before { content:''; width:4px; height:1em; background:var(--dorado); border-radius:2px; }
+
+/* FORMS */
+.form-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; }
+.form-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media(max-width:600px){.form-grid-2{grid-template-columns:1fr;}}
+.field { display:flex; flex-direction:column; gap:6px; }
+.field label { font-size:0.66rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#888; }
+.field select, .field input {
+  padding:11px 14px; background:rgba(255,255,255,0.07); border:1.5px solid rgba(255,255,255,0.12);
+  border-radius:8px; color:var(--blanco); font-family:'Barlow',sans-serif; font-size:0.88rem;
+  outline:none; transition:border-color 0.2s; -webkit-appearance:none; appearance:none;
+}
+.field select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23aaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; padding-right:34px; }
+.field select:focus, .field input:focus { border-color:var(--dorado); background:rgba(240,165,0,0.06); }
+.field select option { background:#1a1a2e; color:white; }
+
+/* SCORE INPUTS */
+.score-row { display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:14px 18px; margin-bottom:10px; }
+.score-team { flex:1; font-weight:700; font-size:0.92rem; }
+.score-team.right { text-align:right; }
+.score-vs { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--rojo); letter-spacing:2px; flex-shrink:0; }
+.score-num {
+  width:70px; text-align:center; padding:10px; background:rgba(240,165,0,0.1);
+  border:2px solid rgba(240,165,0,0.3); border-radius:8px; color:var(--dorado);
+  font-family:'Bebas Neue',sans-serif; font-size:1.6rem; outline:none;
+  font-weight:700; transition:border-color 0.2s; -moz-appearance:textfield;
+}
+.score-num::-webkit-outer-spin-button,.score-num::-webkit-inner-spin-button{-webkit-appearance:none;}
+.score-num:focus { border-color:var(--dorado); }
+
+/* BUTTONS */
+.btn {
+  padding:11px 24px; border:none; border-radius:8px; font-family:'Barlow',sans-serif;
+  font-size:0.8rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all 0.2s;
+}
+.btn-gold { background:var(--dorado); color:var(--negro); }
+.btn-gold:hover { background:var(--dorado-claro); transform:translateY(-1px); }
+.btn-gold:disabled { opacity:0.45; cursor:not-allowed; transform:none; }
+.btn-red { background:var(--rojo); color:var(--blanco); }
+.btn-red:hover { background:var(--rojo-oscuro); }
+.btn-green { background:var(--verde); color:var(--blanco); }
+.btn-ghost { background:transparent; border:1.5px solid rgba(255,255,255,0.2); color:#aaa; }
+.btn-ghost:hover { border-color:var(--dorado); color:var(--dorado); }
+
+/* STATUS BADGES */
+.badge { display:inline-block; font-size:0.6rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:3px 10px; border-radius:20px; }
+.badge-prox { background:rgba(150,150,150,0.2); color:#aaa; border:1px solid rgba(150,150,150,0.3); }
+.badge-live { background:rgba(200,16,46,0.2); color:#ff6b7a; border:1px solid rgba(200,16,46,0.4); animation:pLive 1s infinite; }
+.badge-fin  { background:rgba(39,174,96,0.2); color:#6de89e; border:1px solid rgba(39,174,96,0.4); }
+@keyframes pLive { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
+
+/* TOAST */
+.toast {
+  position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:rgba(26,26,46,0.98); border:1px solid rgba(240,165,0,0.4); border-radius:10px;
+  padding:13px 24px; font-size:0.82rem; font-weight:600; letter-spacing:0.5px;
+  z-index:9999; opacity:0; transition:all 0.3s; pointer-events:none; white-space:nowrap;
+  backdrop-filter:blur(10px);
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+.toast.ok  { border-color:rgba(39,174,96,0.6); color:#6de89e; }
+.toast.err { border-color:rgba(200,16,46,0.6); color:#ff8a95; }
+.toast.info{ border-color:rgba(240,165,0,0.5); color:var(--dorado); }
+
+/* FIXTURE TABLE */
+.fixture-table { width:100%; border-collapse:collapse; }
+.fixture-table th { padding:10px 12px; font-size:0.62rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#888; text-align:left; border-bottom:1px solid rgba(255,255,255,0.08); }
+.fixture-table td { padding:11px 12px; font-size:0.82rem; border-bottom:1px solid rgba(255,255,255,0.05); vertical-align:middle; }
+.fixture-table tr:hover td { background:rgba(240,165,0,0.04); }
+.edit-btn { background:transparent; border:1px solid rgba(240,165,0,0.3); color:var(--dorado); padding:4px 12px; border-radius:5px; font-size:0.68rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+.edit-btn:hover { background:rgba(240,165,0,0.15); }
+
+/* MODAL */
+.modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:500; display:flex; align-items:center; justify-content:center; padding:20px; opacity:0; pointer-events:none; transition:opacity 0.25s; backdrop-filter:blur(4px); }
+.modal-bg.open { opacity:1; pointer-events:auto; }
+.modal { background:#1a1a2e; border:1px solid rgba(240,165,0,0.25); border-radius:14px; width:100%; max-width:600px; max-height:90vh; overflow-y:auto; box-shadow:0 30px 80px rgba(0,0,0,0.7); transform:scale(0.95); transition:transform 0.25s; }
+.modal-bg.open .modal { transform:scale(1); }
+.modal-head { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid rgba(255,255,255,0.08); }
+.modal-head h3 { font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:2px; color:var(--dorado); }
+.modal-close { background:transparent; border:none; color:#aaa; font-size:1.4rem; cursor:pointer; padding:4px 8px; border-radius:4px; transition:color 0.2s; }
+.modal-close:hover { color:var(--blanco); }
+.modal-body { padding:24px; }
+.modal-footer { padding:16px 24px 20px; display:flex; gap:10px; justify-content:flex-end; border-top:1px solid rgba(255,255,255,0.06); }
+
+/* POSICION PODIO */
+.posicion-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+@media(max-width:500px){.posicion-grid{grid-template-columns:repeat(2,1fr);}}
+.pos-slot { display:flex; flex-direction:column; align-items:center; gap:6px; }
+.pos-label { font-size:0.6rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#888; }
+.pos-num { font-family:'Bebas Neue',sans-serif; font-size:1.3rem; color:var(--dorado); line-height:1; }
+.pos-select { width:100%; padding:9px 8px; background:rgba(255,255,255,0.07); border:1.5px solid rgba(255,255,255,0.12); border-radius:8px; color:var(--blanco); font-family:'Barlow',sans-serif; font-size:0.78rem; outline:none; -webkit-appearance:none; appearance:none; text-align:center; }
+.pos-select:focus { border-color:var(--dorado); }
+
+/* LOADING */
+.spinner { display:inline-block; width:16px; height:16px; border:2px solid rgba(240,165,0,0.3); border-top-color:var(--dorado); border-radius:50%; animation:spin 0.7s linear infinite; vertical-align:middle; margin-right:6px; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+.empty-state { text-align:center; padding:40px 20px; color:#555; }
+.empty-state .icon { font-size:2.5rem; margin-bottom:10px; }
+.empty-state p { font-size:0.82rem; }
+
+/* RESUMEN BAR */
+.resumen-bar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; }
+.resumen-item { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:10px 16px; display:flex; gap:10px; align-items:center; }
+.resumen-num { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:var(--dorado); line-height:1; }
+.resumen-lbl { font-size:0.65rem; color:#888; font-weight:700; letter-spacing:1px; text-transform:uppercase; line-height:1.3; }
+
+/* INDIVIDUAL PODIO */
+.cat-block { margin-bottom:10px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:10px; overflow:hidden; }
+.cat-head { padding:12px 16px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; gap:10px; }
+.cat-head:hover { background:rgba(240,165,0,0.05); }
+.cat-head-info { display:flex; align-items:center; gap:10px; }
+.cat-deporte { font-family:'Barlow Condensed',sans-serif; font-size:0.92rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+.cat-categoria { font-size:0.72rem; color:#888; letter-spacing:0.5px; }
+.cat-tipo { font-size:0.6rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:2px 8px; border-radius:20px; }
+.cat-tipo.grupal { background:rgba(200,16,46,0.15); color:#ff8a95; border:1px solid rgba(200,16,46,0.3); }
+.cat-tipo.individual { background:rgba(39,174,96,0.15); color:#6de89e; border:1px solid rgba(39,174,96,0.3); }
+.cat-body { padding:14px 16px; display:none; border-top:1px solid rgba(255,255,255,0.06); }
+.cat-body.open { display:block; }
+.cat-arrow { color:#555; font-size:0.8rem; transition:transform 0.2s; }
+.cat-head.open .cat-arrow { transform:rotate(180deg); }
+.saved-pill { font-size:0.6rem; font-weight:700; letter-spacing:1px; padding:2px 8px; border-radius:20px; background:rgba(39,174,96,0.15); color:#6de89e; border:1px solid rgba(39,174,96,0.3); }
+
+/* ESTADÍSTICAS FILA */
+.stats-mini { display:grid; grid-template-columns:repeat(auto-fill,minmax(90px,1fr)); gap:8px; margin-top:12px; }
+.stat-field { display:flex; flex-direction:column; gap:4px; }
+.stat-field label { font-size:0.58rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#666; }
+.stat-field input { padding:8px; background:rgba(255,255,255,0.07); border:1.5px solid rgba(255,255,255,0.1); border-radius:6px; color:var(--blanco); font-family:'Barlow',sans-serif; font-size:0.82rem; outline:none; text-align:center; -moz-appearance:textfield; transition:border-color 0.2s; }
+.stat-field input::-webkit-outer-spin-button,.stat-field input::-webkit-inner-spin-button{-webkit-appearance:none;}
+.stat-field input:focus { border-color:var(--dorado); }
+
+/* NOTA INFO */
+.nota { background:rgba(240,165,0,0.08); border:1px solid rgba(240,165,0,0.2); border-radius:8px; padding:10px 14px; font-size:0.75rem; color:#cca848; line-height:1.6; margin-bottom:16px; }
+.nota strong { color:var(--dorado); }
+
+/* DELEGACION TAG */
+.dep-tag { display:inline-block; background:rgba(255,255,255,0.1); border-radius:4px; padding:1px 7px; font-size:0.7rem; font-weight:700; letter-spacing:1px; }
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="title">⚽ CAMPEONATO<br>REGIONAL DEL SUR</div>
+      <div class="sub">XXIV Edición — 2026</div>
+    </div>
+    <div style="text-align:center; margin-bottom:20px;">
+      <span class="login-badge">🔐 Panel de Verificadores</span>
+    </div>
+    <div class="form-group">
+      <label>Usuario</label>
+      <input class="form-input" id="loginUser" type="text" placeholder="tu_usuario" autocomplete="username" autocapitalize="none">
+    </div>
+    <div class="form-group">
+      <label>Contraseña</label>
+      <input class="form-input" id="loginPass" type="password" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="login-btn" id="loginBtn" onclick="doLogin()">Ingresar</button>
+    <div class="login-error" id="loginError"></div>
+    <div style="text-align:center; margin-top:20px; font-size:0.68rem; color:#555; line-height:1.7;">
+      Acceso exclusivo para verificadores y administradores.<br>Solo roles autorizados pueden registrar resultados.
+    </div>
+  </div>
+</div>
+
+<!-- ══ APP ══ -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-brand">
+      ⚽ RESULTADOS <span>/ XXIV Campeonato Sur</span>
+    </div>
+    <div class="topbar-right">
+      <span class="user-pill" id="userPill">—</span>
+      <button class="logout-btn" onclick="doLogout()">Salir</button>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- RESUMEN -->
+    <div class="resumen-bar" id="resumenBar">
+      <div class="resumen-item"><div class="resumen-num" id="cntPartidos">—</div><div class="resumen-lbl">Partidos<br>Registrados</div></div>
+      <div class="resumen-item"><div class="resumen-num" id="cntFin">—</div><div class="resumen-lbl">Finalizados</div></div>
+      <div class="resumen-item"><div class="resumen-num" id="cntProx">—</div><div class="resumen-lbl">Próximos</div></div>
+      <div class="resumen-item"><div class="resumen-num" id="cntRes">—</div><div class="resumen-lbl">Resultados<br>H3</div></div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('fixture')" id="tabFixture">📋 Fixture / Partidos</button>
+      <button class="tab-btn" onclick="switchTab('resultados')" id="tabResultados">🏆 Resultados por Disciplina</button>
+      <button class="tab-btn" onclick="switchTab('semifinales')" id="tabSemi">⚔️ Semifinales & Finales</button>
+    </div>
+
+    <!-- ══ PANEL 1: FIXTURE ══ -->
+    <div class="tab-panel active" id="panelFixture">
+      <div class="section-h"><h2>📋 Fixture General</h2></div>
+
+      <div class="nota">
+        <strong>Hoja H1 — Fixture General.</strong> Registra el resultado de cada partido de fase grupal. El estado cambia automáticamente a <strong>FIN</strong> al guardar. Los cambios se sincronizan con Google Sheets en tiempo real.
+      </div>
+
+      <div class="card">
+        <div class="card-title">Cargar partidos desde Google Sheets</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <button class="btn btn-ghost" onclick="loadFixture()">🔄 Recargar fixture</button>
+          <button class="btn btn-gold" onclick="openNewPartido()">+ Nuevo partido</button>
+        </div>
+      </div>
+
+      <div id="fixtureContainer">
+        <div class="empty-state"><div class="icon">⏳</div><p>Cargando partidos…</p></div>
+      </div>
+    </div>
+
+    <!-- ══ PANEL 2: RESULTADOS POR DISCIPLINA ══ -->
+    <div class="tab-panel" id="panelResultados">
+      <div class="section-h"><h2>🏆 Resultados por Disciplina</h2></div>
+
+      <div class="nota">
+        <strong>Hoja H3 — Resultados.</strong> Registra el podio (1°→5°) para cada disciplina usando los códigos de delegación: <strong>AQP | CUS | MDD | JUL | TAC</strong>. Los puntos se calculan automáticamente en Google Sheets.
+      </div>
+
+      <div id="resultadosContainer"></div>
+    </div>
+
+    <!-- ══ PANEL 3: SEMIFINALES ══ -->
+    <div class="tab-panel" id="panelSemi">
+      <div class="section-h"><h2>⚔️ Semifinales & Finales</h2></div>
+
+      <div class="nota">
+        <strong>Hoja H4 — Semifinales y Finales.</strong> Registra los partidos de las fases semifinal y final de cada deporte grupal.
+      </div>
+
+      <div class="card">
+        <div class="card-title">Partidos de eliminatoria</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn btn-ghost" onclick="loadSemifinal()">🔄 Recargar</button>
+          <button class="btn btn-gold" onclick="openNewSemifinal()">+ Añadir partido</button>
+        </div>
+      </div>
+
+      <div id="semifinalContainer">
+        <div class="empty-state"><div class="icon">⏳</div><p>Cargando…</p></div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ══ MODAL EDITAR / NUEVO PARTIDO ══ -->
+<div class="modal-bg" id="modalPartido">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modalPartidoTitle">Registrar Resultado</h3>
+      <button class="modal-close" onclick="closeModal('modalPartido')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex; flex-direction:column; gap:14px;">
+
+        <div class="form-grid">
+          <div class="field">
+            <label>Partido ID</label>
+            <input type="text" id="mpId" class="form-input" placeholder="Ej. F1-FUT-V-01" style="background:rgba(0,0,0,0.2)">
+          </div>
+          <div class="field">
+            <label>Deporte</label>
+            <select id="mpDeporte">
+              <option value="">— Seleccionar —</option>
+              <option>Fútbol Máster</option><option>Fútbol Libre Varones</option><option>Fútbol Libre Damas</option>
+              <option>Baloncesto Hombres</option><option>Baloncesto Mujeres</option>
+              <option>Vóley Mixto</option><option>Sapo</option><option>Danza</option>
+              <option>Ajedrez</option><option>100 Metros Varones</option><option>100 Metros Damas</option>
+              <option>Futbolín</option><option>Maratón</option><option>Tenis de Mesa</option><option>Cubilete</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="field">
+            <label>Hora</label>
+            <input type="time" id="mpHora" class="form-input">
+          </div>
+          <div class="field">
+            <label>Lugar / Cancha</label>
+            <input type="text" id="mpLugar" class="form-input" placeholder="Cancha principal">
+          </div>
+        </div>
+
+        <div style="padding:16px; background:rgba(0,0,0,0.2); border-radius:10px; border:1px solid rgba(255,255,255,0.07);">
+          <div style="font-size:0.65rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#888; margin-bottom:12px;">Marcador del Partido</div>
+          <div class="score-row">
+            <div class="score-team">
+              <select id="mpEquipoA" style="background:transparent;border:none;color:var(--dorado);font-weight:700;font-size:0.9rem;outline:none;width:100%;cursor:pointer;">
+                <option value="">— Delegación A —</option>
+                <option>AQP</option><option>CUS</option><option>MDD</option><option>JUL</option><option>TAC</option><option>BYE</option>
+              </select>
+            </div>
+            <input type="number" id="mpGolA" class="score-num" min="0" placeholder="0" value="">
+            <div class="score-vs">VS</div>
+            <input type="number" id="mpGolB" class="score-num" min="0" placeholder="0" value="">
+            <div class="score-team right">
+              <select id="mpEquipoB" style="background:transparent;border:none;color:var(--dorado);font-weight:700;font-size:0.9rem;outline:none;width:100%;cursor:pointer;text-align:right;">
+                <option value="">— Delegación B —</option>
+                <option>AQP</option><option>CUS</option><option>MDD</option><option>JUL</option><option>TAC</option><option>BYE</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="field">
+            <label>Estado</label>
+            <select id="mpEstado">
+              <option value="PROX">⏳ PROX — Próximo</option>
+              <option value="LIVE">🔴 LIVE — En curso</option>
+              <option value="FIN">✅ FIN — Finalizado</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Árbitro (opcional)</label>
+            <input type="text" id="mpArbitro" class="form-input" placeholder="Nombre árbitro">
+          </div>
+        </div>
+
+        <!-- Stats extra -->
+        <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:14px;">
+          <div style="font-size:0.65rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#888; margin-bottom:12px;">Estadísticas H5 (para desempate)</div>
+          <div class="stats-mini">
+            <div class="stat-field" id="setsWrap">
+              <label>Sets A</label>
+              <input type="number" id="mpSetsA" placeholder="—" min="0">
+            </div>
+            <div class="stat-field" id="setsBWrap">
+              <label>Sets B</label>
+              <input type="number" id="mpSetsB" placeholder="—" min="0">
+            </div>
+            <div class="stat-field">
+              <label>T. Amarillas A</label>
+              <input type="number" id="mpTamA" placeholder="0" min="0" value="0">
+            </div>
+            <div class="stat-field">
+              <label>T. Amarillas B</label>
+              <input type="number" id="mpTamB" placeholder="0" min="0" value="0">
+            </div>
+            <div class="stat-field">
+              <label>T. Rojas A</label>
+              <input type="number" id="mpTrojA" placeholder="0" min="0" value="0">
+            </div>
+            <div class="stat-field">
+              <label>T. Rojas B</label>
+              <input type="number" id="mpTrojB" placeholder="0" min="0" value="0">
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Notas</label>
+          <input type="text" id="mpNotas" class="form-input" placeholder="Observaciones opcionales">
+        </div>
+
+        <input type="hidden" id="mpRow">
+        <input type="hidden" id="mpSheet">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalPartido')">Cancelar</button>
+      <button class="btn btn-gold" id="mpSaveBtn" onclick="savePartido()">💾 Guardar Resultado</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════
+//  CONFIG
+// ══════════════════════════════════════════
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzuGpqApjC7wb4ShB3u0qtgAHiU6FlJnnxoP2dORiXKRHjwkoFJwYNA7Ekt-bBlfDMvzA/exec';
+const SPREADSHEET_ID = '1q7Z2ktW1ixLFCHJxkE80iddu29qZvwTnfsoEyTESki0';
+const OPENSHEET = 'https://opensheet.elk.sh/' + SPREADSHEET_ID + '/';
+
+// Roles que tienen acceso
+const ROLES_PERMITIDOS = ['administrador','verificadorpartidos','verificador'];
+
+// Disciplinas de la H3 (mismas del Excel)
+const DISCIPLINAS_H3 = [
+  { deporte:'Baloncesto',    categoria:'Hombres',       tipo:'grupal'     },
+  { deporte:'Baloncesto',    categoria:'Mujeres',       tipo:'grupal'     },
+  { deporte:'Danza',         categoria:'Grupal',        tipo:'grupal'     },
+  { deporte:'Fútbol',        categoria:'Fulbito Master',tipo:'grupal'     },
+  { deporte:'Fútbol',        categoria:'Libre Varones', tipo:'grupal'     },
+  { deporte:'Fútbol',        categoria:'Libre Damas',   tipo:'grupal'     },
+  { deporte:'Sapo',          categoria:'Grupal',        tipo:'grupal'     },
+  { deporte:'Vóley Mixto',   categoria:'Mixto',         tipo:'grupal'     },
+  { deporte:'Ajedrez',       categoria:'Individual',    tipo:'individual' },
+  { deporte:'Cubilete',      categoria:'Individual',    tipo:'individual' },
+  { deporte:'100 Metros',    categoria:'Varones',       tipo:'individual' },
+  { deporte:'100 Metros',    categoria:'Damas',         tipo:'individual' },
+  { deporte:'Futbolín',      categoria:'Varones',       tipo:'individual' },
+  { deporte:'Futbolín',      categoria:'Damas',         tipo:'individual' },
+  { deporte:'Maratón',       categoria:'Varones',       tipo:'individual' },
+  { deporte:'Maratón',       categoria:'Damas',         tipo:'individual' },
+  { deporte:'Tenis de Mesa', categoria:'Varones',       tipo:'individual' },
+  { deporte:'Tenis de Mesa', categoria:'Damas',         tipo:'individual' },
+];
+
+const DELEGACIONES = ['AQP','CUS','MDD','JUL','TAC'];
+
+// ══════════════════════════════════════════
+//  ESTADO
+// ══════════════════════════════════════════
+let SESSION = { token:null, usuario:null, rol:null };
+let h3Data = {}; // { "Baloncesto|Hombres": {pos1:'AQP', ...} }
+let fixtureData = [];
+let semifinalData = [];
+
+// ══════════════════════════════════════════
+//  AUTH
+// ══════════════════════════════════════════
+async function doLogin() {
+  const user = document.getElementById('loginUser').value.trim();
+  const pass = document.getElementById('loginPass').value.trim();
+  const btn  = document.getElementById('loginBtn');
+  const err  = document.getElementById('loginError');
+  err.classList.remove('show');
+  if (!user || !pass) { showLoginError('Ingresa usuario y contraseña.'); return; }
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Verificando…';
+  try {
+    const url = SCRIPT_URL + '?action=login&usuario=' + encodeURIComponent(user) + '&password=' + encodeURIComponent(pass);
+    const r   = await fetch(url);
+    const d   = await r.json();
+    if (d.result === 'ok') {
+      if (!ROLES_PERMITIDOS.includes(d.rol)) {
+        showLoginError('Tu rol (' + d.rol + ') no tiene acceso a este panel.');
+        btn.disabled = false; btn.textContent = 'Ingresar'; return;
+      }
+      SESSION = { token: d.token, usuario: d.usuario, rol: d.rol };
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      document.getElementById('userPill').textContent = '👤 ' + d.usuario + ' · ' + d.rol;
+      initApp();
+    } else {
+      showLoginError(d.mensaje || 'Credenciales incorrectas.');
+    }
+  } catch(e) {
+    showLoginError('Error de conexión. Revisa internet.');
+  }
+  btn.disabled = false; btn.textContent = 'Ingresar';
+}
+
+function showLoginError(msg) {
+  const el = document.getElementById('loginError');
+  el.textContent = '⚠ ' + msg;
+  el.classList.add('show');
+}
+
+function doLogout() {
+  SESSION = { token:null, usuario:null, rol:null };
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginError').classList.remove('show');
+}
+
+// Enter en login
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('loginScreen').style.display !== 'none') doLogin();
+});
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+function initApp() {
+  loadFixture();
+  loadResultadosH3();
+  loadSemifinal();
+}
+
+// ══════════════════════════════════════════
+//  TABS
+// ══════════════════════════════════════════
+function switchTab(name) {
+  ['fixture','resultados','semifinales'].forEach(t => {
+    document.getElementById('panel' + cap(t)).classList.remove('active');
+    document.getElementById('tab' + cap(t)).classList.remove('active');
+  });
+  document.getElementById('panel' + cap(name)).classList.add('active');
+  document.getElementById('tab' + cap(name)).classList.add('active');
+}
+function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+// ══════════════════════════════════════════
+//  FIXTURE H1
+// ══════════════════════════════════════════
+async function loadFixture() {
+  document.getElementById('fixtureContainer').innerHTML = '<div class="empty-state"><span class="spinner"></span><p>Cargando fixture desde Google Sheets…</p></div>';
+  try {
+    const r = await fetch(OPENSHEET + 'Hoja%201');
+    const rows = await r.json();
+    // Filtrar filas reales (con datos de partido)
+    fixtureData = rows.filter(r => r['EquipoA'] && r['EquipoB']).map((r, i) => ({
+      idx: i,
+      id: r['Partido_ID'] || ('P' + (i+1)),
+      hora: r['Hora'] || '',
+      deporte: r['Deporte'] || '',
+      equipoA: r['EquipoA'] || '',
+      equipoB: r['EquipoB'] || '',
+      resultado: r['Resultado'] || '',
+      estado: r['Estado'] || 'PROX',
+      lugar: r['Lugar'] || '',
+      arbitro: r['Árbitro'] || '',
+      notas: r['Notas'] || '',
+    }));
+    renderFixture();
+    updateResumen();
+  } catch(e) {
+    document.getElementById('fixtureContainer').innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><p>Error cargando fixture. Verifica la conexión.</p></div>';
+  }
+}
+
+function renderFixture() {
+  const fin  = fixtureData.filter(p => p.estado === 'FIN').length;
+  const live = fixtureData.filter(p => p.estado === 'LIVE').length;
+  const prox = fixtureData.filter(p => p.estado === 'PROX').length;
+
+  document.getElementById('cntPartidos').textContent = fixtureData.length;
+  document.getElementById('cntFin').textContent = fin;
+  document.getElementById('cntProx').textContent = prox;
+
+  if (!fixtureData.length) {
+    document.getElementById('fixtureContainer').innerHTML = '<div class="empty-state"><div class="icon">📋</div><p>No hay partidos en el fixture aún. Añade el primero.</p></div>';
+    return;
+  }
+
+  // Agrupar por deporte
+  const grupos = {};
+  fixtureData.forEach(p => {
+    const k = p.deporte || 'Sin deporte';
+    if (!grupos[k]) grupos[k] = [];
+    grupos[k].push(p);
+  });
+
+  let html = '';
+  for (const dep in grupos) {
+    html += `<div class="card">
+      <div class="card-title">⚽ ${dep}</div>
+      <div style="overflow-x:auto;">
+      <table class="fixture-table">
+        <thead><tr>
+          <th>ID</th><th>Hora</th><th>A</th><th style="text-align:center">Marcador</th><th>B</th><th>Estado</th><th>Acciones</th>
+        </tr></thead><tbody>`;
+
+    grupos[dep].forEach((p, i) => {
+      const score = p.resultado ? p.resultado : (p.estado === 'PROX' ? '—' : p.resultado || '—');
+      const badgeCls = p.estado === 'FIN' ? 'badge-fin' : p.estado === 'LIVE' ? 'badge-live' : 'badge-prox';
+      const badgeTxt = p.estado === 'FIN' ? '✅ FIN' : p.estado === 'LIVE' ? '🔴 LIVE' : '⏳ PROX';
+      html += `<tr>
+        <td style="font-size:0.68rem;color:#888;">${p.id}</td>
+        <td style="font-size:0.78rem;">${p.hora || '—'}</td>
+        <td><span class="dep-tag">${p.equipoA}</span></td>
+        <td style="text-align:center;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--dorado);">${score}</td>
+        <td><span class="dep-tag">${p.equipoB}</span></td>
+        <td><span class="badge ${badgeCls}">${badgeTxt}</span></td>
+        <td><button class="edit-btn" onclick="editPartido(${fixtureData.indexOf(p)},'H1')">✏️ Editar</button></td>
+      </tr>`;
+    });
+
+    html += '</tbody></table></div></div>';
+  }
+
+  document.getElementById('fixtureContainer').innerHTML = html;
+}
+
+// ══════════════════════════════════════════
+//  RESULTADOS H3
+// ══════════════════════════════════════════
+async function loadResultadosH3() {
+  try {
+    const r = await fetch(OPENSHEET + 'Hoja%203');
+    const rows = await r.json();
+    rows.forEach(r => {
+      const key = (r['Deporte'] + '|' + r['Categoría']).trim();
+      if (key && key !== '|') {
+        h3Data[key] = {
+          pos1: r['1° Pos'] || '', pos2: r['2° Pos'] || '', pos3: r['3° Pos'] || '',
+          pos4: r['4° Pos'] || '', pos5: r['5° Pos'] || '',
+          fecha: r['Fecha'] || '', notas: r['Notas'] || '',
+          tipo: r['Tipo'] || ''
+        };
+      }
+    });
+  } catch(e) { /* se usará h3Data vacío */ }
+  renderResultadosH3();
+  updateResumen();
+}
+
+function renderResultadosH3() {
+  let saved = 0;
+  DISCIPLINAS_H3.forEach(d => {
+    const key = d.deporte + '|' + d.categoria;
+    if (h3Data[key] && h3Data[key].pos1) saved++;
+  });
+  document.getElementById('cntRes').textContent = saved + '/' + DISCIPLINAS_H3.length;
+
+  let html = '';
+  DISCIPLINAS_H3.forEach((disc, idx) => {
+    const key = disc.deporte + '|' + disc.categoria;
+    const saved = h3Data[key] && h3Data[key].pos1;
+    const d = h3Data[key] || {};
+    const tipoCls = disc.tipo === 'grupal' ? 'grupal' : 'individual';
+    const tipoLbl = disc.tipo === 'grupal' ? '🏅 Grupal' : '🎯 Individual';
+
+    html += `<div class="cat-block">
+      <div class="cat-head" id="catHead${idx}" onclick="toggleCat(${idx})">
+        <div class="cat-head-info">
+          <span class="cat-deporte">${disc.deporte}</span>
+          <span class="cat-categoria">${disc.categoria}</span>
+          <span class="cat-tipo ${tipoCls}">${tipoLbl}</span>
+          ${saved ? '<span class="saved-pill">✓ Guardado</span>' : ''}
+        </div>
+        <span class="cat-arrow" id="catArrow${idx}">▼</span>
+      </div>
+      <div class="cat-body" id="catBody${idx}">
+        <div class="posicion-grid">`;
+
+    [1,2,3,4,5].forEach(p => {
+      const medal = p===1?'🥇':p===2?'🥈':p===3?'🥉':p+'°';
+      html += `<div class="pos-slot">
+        <div class="pos-num">${medal}</div>
+        <select class="pos-select" id="pos${idx}_${p}" onchange="markDirty(${idx})">
+          <option value="">—</option>
+          ${DELEGACIONES.map(dep => `<option value="${dep}" ${(d['pos'+p]===dep)?'selected':''}>${dep}</option>`).join('')}
+        </select>
+      </div>`;
+    });
+
+    html += `</div>
+        <div style="display:flex; gap:10px; margin-top:14px; align-items:center; flex-wrap:wrap;">
+          <div class="field" style="flex:1; min-width:150px;">
+            <label>Fecha del resultado</label>
+            <input type="date" id="fecha${idx}" class="form-input" value="${d.fecha||''}">
+          </div>
+          <div class="field" style="flex:2; min-width:200px;">
+            <label>Notas</label>
+            <input type="text" id="notas${idx}" class="form-input" placeholder="Observaciones…" value="${d.notas||''}">
+          </div>
+          <div style="margin-top:18px;">
+            <button class="btn btn-gold" onclick="saveResultado(${idx}, '${disc.deporte}', '${disc.categoria}', '${disc.tipo}')">
+              💾 Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  document.getElementById('resultadosContainer').innerHTML = html;
+}
+
+function toggleCat(idx) {
+  const body  = document.getElementById('catBody' + idx);
+  const head  = document.getElementById('catHead' + idx);
+  const arrow = document.getElementById('catArrow' + idx);
+  const open  = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  head.classList.toggle('open', !open);
+}
+
+function markDirty(idx) { /* visual feedback only */ }
+
+async function saveResultado(idx, deporte, categoria, tipo) {
+  const pos = {};
+  [1,2,3,4,5].forEach(p => { pos['pos'+p] = document.getElementById('pos'+idx+'_'+p).value; });
+  const fecha = document.getElementById('fecha'+idx).value;
+  const notas = document.getElementById('notas'+idx).value;
+  const key   = deporte + '|' + categoria;
+
+  // Buscar fila correspondiente en H3 leyendo de nuevo
+  showToast('info','💾 Guardando resultado…');
+  try {
+    const payload = {
+      action: 'saveResultadoH3',
+      token: SESSION.token,
+      deporte, categoria, tipo,
+      pos1: pos.pos1, pos2: pos.pos2, pos3: pos.pos3, pos4: pos.pos4, pos5: pos.pos5,
+      fecha, notas
+    };
+    const r = await postScript(payload);
+    if (r.result === 'ok') {
+      h3Data[key] = { ...pos, fecha, notas, tipo };
+      showToast('ok', '✅ Resultado guardado — ' + deporte + ' ' + categoria);
+      // Refrescar badge saved
+      const head = document.getElementById('catHead' + idx);
+      if (pos.pos1 && !head.querySelector('.saved-pill')) {
+        head.querySelector('.cat-head-info').insertAdjacentHTML('beforeend','<span class="saved-pill">✓ Guardado</span>');
+      }
+      updateResumen();
+    } else {
+      showToast('err', '⚠ ' + (r.mensaje || 'Error al guardar'));
+    }
+  } catch(e) {
+    showToast('err','⚠ Error de conexión. Intenta de nuevo.');
+  }
+}
+
+// ══════════════════════════════════════════
+//  SEMIFINALES H4
+// ══════════════════════════════════════════
+async function loadSemifinal() {
+  document.getElementById('semifinalContainer').innerHTML = '<div class="empty-state"><span class="spinner"></span><p>Cargando…</p></div>';
+  try {
+    const r = await fetch(OPENSHEET + 'Hoja%204');
+    const rows = await r.json();
+    semifinalData = rows.filter(r => r['EquipoA'] || r['EquipoB']).map((r, i) => ({
+      idx: i,
+      id: r['Partido_ID'] || ('SF' + (i+1)),
+      hora: r['Hora'] || '',
+      deporte: r['Deporte'] || '',
+      fase: r['Fase'] || '',
+      equipoA: r['EquipoA'] || '',
+      equipoB: r['EquipoB'] || '',
+      resultado: r['Resultado'] || '',
+      estado: r['Estado'] || 'PROX',
+      lugar: r['Lugar'] || '',
+      notas: r['Notas'] || '',
+    }));
+    renderSemifinal();
+  } catch(e) {
+    document.getElementById('semifinalContainer').innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><p>Error cargando datos.</p></div>';
+  }
+}
+
+function renderSemifinal() {
+  if (!semifinalData.length) {
+    document.getElementById('semifinalContainer').innerHTML = '<div class="empty-state"><div class="icon">⚔️</div><p>No hay partidos de eliminatoria aún.</p></div>';
+    return;
+  }
+
+  // Agrupar por fase
+  const grupos = {};
+  semifinalData.forEach(p => {
+    const k = (p.fase || 'Otro') + ' — ' + (p.deporte || 'Sin deporte');
+    if (!grupos[k]) grupos[k] = [];
+    grupos[k].push(p);
+  });
+
+  let html = '';
+  for (const grp in grupos) {
+    html += `<div class="card"><div class="card-title">⚔️ ${grp}</div>
+      <div style="overflow-x:auto;"><table class="fixture-table">
+        <thead><tr><th>ID</th><th>Equipos</th><th>Resultado</th><th>Estado</th><th>Acción</th></tr></thead><tbody>`;
+    grupos[grp].forEach(p => {
+      const badgeCls = p.estado === 'FIN' ? 'badge-fin' : p.estado === 'LIVE' ? 'badge-live' : 'badge-prox';
+      const badgeTxt = p.estado === 'FIN' ? '✅ FIN' : p.estado === 'LIVE' ? '🔴 LIVE' : '⏳ PROX';
+      html += `<tr>
+        <td style="font-size:0.68rem;color:#888;">${p.id}</td>
+        <td><span class="dep-tag">${p.equipoA||'—'}</span> <span style="color:#555;margin:0 4px;">vs</span> <span class="dep-tag">${p.equipoB||'—'}</span></td>
+        <td style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--dorado);">${p.resultado || '—'}</td>
+        <td><span class="badge ${badgeCls}">${badgeTxt}</span></td>
+        <td><button class="edit-btn" onclick="editPartido(${semifinalData.indexOf(p)},'H4')">✏️ Editar</button></td>
+      </tr>`;
+    });
+    html += '</tbody></table></div></div>';
+  }
+  document.getElementById('semifinalContainer').innerHTML = html;
+}
+
+// ══════════════════════════════════════════
+//  MODAL PARTIDO (H1 + H4)
+// ══════════════════════════════════════════
+function openNewPartido() {
+  clearModalPartido();
+  document.getElementById('mpSheet').value = 'H1';
+  document.getElementById('mpRow').value = '';
+  document.getElementById('modalPartidoTitle').textContent = '+ Nuevo Partido (H1)';
+  openModal('modalPartido');
+}
+
+function openNewSemifinal() {
+  clearModalPartido();
+  document.getElementById('mpSheet').value = 'H4';
+  document.getElementById('mpRow').value = '';
+  document.getElementById('modalPartidoTitle').textContent = '+ Nuevo Partido (H4 — Semifinal/Final)';
+  openModal('modalPartido');
+}
+
+function editPartido(idx, sheet) {
+  const p = sheet === 'H4' ? semifinalData[idx] : fixtureData[idx];
+  if (!p) return;
+  clearModalPartido();
+  document.getElementById('mpId').value      = p.id || '';
+  document.getElementById('mpDeporte').value = p.deporte || '';
+  document.getElementById('mpHora').value    = p.hora || '';
+  document.getElementById('mpLugar').value   = p.lugar || '';
+  document.getElementById('mpArbitro').value = p.arbitro || '';
+  document.getElementById('mpNotas').value   = p.notas || '';
+  document.getElementById('mpEstado').value  = p.estado || 'PROX';
+  document.getElementById('mpEquipoA').value = p.equipoA || '';
+  document.getElementById('mpEquipoB').value = p.equipoB || '';
+  // Extraer scores del resultado "3-1"
+  if (p.resultado && p.resultado.includes('-')) {
+    const parts = p.resultado.split('-');
+    document.getElementById('mpGolA').value = parts[0].trim();
+    document.getElementById('mpGolB').value = parts[1].trim();
+  }
+  document.getElementById('mpRow').value   = idx;
+  document.getElementById('mpSheet').value = sheet;
+  document.getElementById('modalPartidoTitle').textContent = '✏️ Editar Partido — ' + p.id;
+  openModal('modalPartido');
+}
+
+function clearModalPartido() {
+  ['mpId','mpHora','mpLugar','mpArbitro','mpNotas','mpGolA','mpGolB','mpSetsA','mpSetsB','mpTamA','mpTamB','mpTrojA','mpTrojB'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = id.includes('Tam') || id.includes('Troj') ? '0' : '';
+  });
+  document.getElementById('mpDeporte').value = '';
+  document.getElementById('mpEquipoA').value = '';
+  document.getElementById('mpEquipoB').value = '';
+  document.getElementById('mpEstado').value  = 'PROX';
+}
+
+async function savePartido() {
+  const sheet   = document.getElementById('mpSheet').value;
+  const id      = document.getElementById('mpId').value.trim();
+  const deporte = document.getElementById('mpDeporte').value;
+  const hora    = document.getElementById('mpHora').value;
+  const lugar   = document.getElementById('mpLugar').value;
+  const arbitro = document.getElementById('mpArbitro').value;
+  const equipoA = document.getElementById('mpEquipoA').value;
+  const equipoB = document.getElementById('mpEquipoB').value;
+  const golA    = document.getElementById('mpGolA').value;
+  const golB    = document.getElementById('mpGolB').value;
+  const estado  = document.getElementById('mpEstado').value;
+  const notas   = document.getElementById('mpNotas').value;
+  const setsA   = document.getElementById('mpSetsA').value;
+  const setsB   = document.getElementById('mpSetsB').value;
+  const tamA    = document.getElementById('mpTamA').value || '0';
+  const tamB    = document.getElementById('mpTamB').value || '0';
+  const trojA   = document.getElementById('mpTrojA').value || '0';
+  const trojB   = document.getElementById('mpTrojB').value || '0';
+  const rowIdx  = document.getElementById('mpRow').value;
+
+  if (!equipoA || !equipoB) { showToast('err','⚠ Selecciona ambas delegaciones.'); return; }
+
+  const resultado = (golA !== '' && golB !== '') ? golA + '-' + golB : '';
+
+  const btn = document.getElementById('mpSaveBtn');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Guardando…';
+
+  try {
+    const payload = {
+      action: 'savePartido',
+      token: SESSION.token,
+      sheet,
+      isNew: rowIdx === '',
+      rowIdx: rowIdx !== '' ? parseInt(rowIdx) : null,
+      data: {
+        'Partido_ID': id, 'Deporte': deporte, 'Hora': hora, 'Lugar': lugar,
+        'EquipoA': equipoA, 'EquipoB': equipoB, 'Resultado': resultado,
+        'Estado': estado, 'Árbitro': arbitro, 'Notas': notas,
+        // Para H5 estadísticas
+        'GolesA': golA, 'GolesB': golB, 'SetsA': setsA, 'SetsB': setsB,
+        'TarjetasAmA': tamA, 'TarjetasAmB': tamB, 'TarjetasRoA': trojA, 'TarjetasRoB': trojB,
+      }
+    };
+    const r = await postScript(payload);
+    if (r.result === 'ok') {
+      showToast('ok','✅ Partido guardado correctamente');
+      closeModal('modalPartido');
+      if (sheet === 'H4') loadSemifinal(); else loadFixture();
+    } else {
+      showToast('err','⚠ ' + (r.mensaje || 'Error al guardar'));
+    }
+  } catch(e) {
+    showToast('err','⚠ Error de conexión.');
+  }
+  btn.disabled = false; btn.textContent = '💾 Guardar Resultado';
+}
+
+// ══════════════════════════════════════════
+//  RESUMEN
+// ══════════════════════════════════════════
+function updateResumen() {
+  const saved = DISCIPLINAS_H3.filter(d => {
+    const key = d.deporte + '|' + d.categoria;
+    return h3Data[key] && h3Data[key].pos1;
+  }).length;
+  document.getElementById('cntRes').textContent = saved + '/' + DISCIPLINAS_H3.length;
+  document.getElementById('cntPartidos').textContent = fixtureData.length;
+  document.getElementById('cntFin').textContent = fixtureData.filter(p => p.estado==='FIN').length;
+  document.getElementById('cntProx').textContent = fixtureData.filter(p => p.estado==='PROX').length;
+}
+
+// ══════════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════════
+async function postScript(payload) {
+  const r = await fetch(SCRIPT_URL, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'text/plain' } // GAS requiere text/plain para evitar preflight
+  });
+  return await r.json();
+}
+
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+let toastTimer;
+function showToast(type, msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3800);
+}
+
+// Cerrar modal al hacer click afuera
+document.getElementById('modalPartido').addEventListener('click', function(e) {
+  if (e.target === this) closeModal('modalPartido');
+});
+</script>
+
+<!-- ══════════════════════════════════════════════════
+     NOTA PARA EL ADMINISTRADOR:
+     Para habilitar el rol "verificadorpartidos" en tu
+     Google Apps Script (nuevo_scrip_4.txt), agrega
+     'verificadorpartidos' a la lista rolesValidos en
+     la función actionCreateUser (línea ~783):
+     
+     var rolesValidos = ['administrador','delegado',
+       'edecan','verificadorasistencia',
+       'verificadorentrega','verificadorpartidos'];
+
+     Además, debes agregar las acciones 'savePartido'
+     y 'saveResultadoH3' en el doPost de tu script.
+     Ver sección de instrucciones adjunta.
+══════════════════════════════════════════════════ -->
+</body>
+</html>
