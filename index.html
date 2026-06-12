@@ -692,7 +692,7 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
    * Obtiene la lista de partidos desde la Hoja 1 (Fixture).
    */
   async function getPartidos() {
-    const res = await fetch(FIXTURE_URL + '?_=' + Date.now());
+    const res = await fetch(FIXTURE_URL + '?raw=true');
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     return Array.isArray(data) ? data : [];
@@ -701,7 +701,7 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
   /** Obtiene Hoja 5 (Detalle: tarjetas, sets, etc.) */
   async function getDetalle() {
     try {
-      const res = await fetch(DETALLE_URL + '?_=' + Date.now());
+      const res = await fetch(DETALLE_URL + '?raw=true');
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
       return Array.isArray(data) ? data : [];
@@ -714,7 +714,7 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
   /** Obtiene Hoja 4 (Semifinal / clasificados) */
   async function getSemifinal() {
     try {
-      const res = await fetch(SEMIFINAL_URL + '?_=' + Date.now());
+      const res = await fetch(SEMIFINAL_URL + '?raw=true');
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
       return Array.isArray(data) ? data : [];
@@ -727,7 +727,7 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
   /** Obtiene Hoja 6 (Cálculo automático, solo lectura) */
   async function getCalculo() {
     try {
-      const res = await fetch(CALCULO_URL + '?_=' + Date.now());
+      const res = await fetch(CALCULO_URL + '?raw=true');
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
       return Array.isArray(data) ? data : [];
