@@ -570,15 +570,7 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
 
   const POLL_MS = 60000;
 
-  /* ── CREDENCIALES DE ACCESO (rol Verificador) ────────────────────
-     Acceso local simple para limitar el panel a personal autorizado.
-     Para mayor seguridad, esto puede validarse contra el Apps Script
-     en el futuro; por ahora es una verificación en el cliente.
-  ─────────────────────────────────────────────────────────────────*/
-  const USUARIOS_VERIFICADOR = [
-    { user: 'verificador', pass: 'MDD2026', nombre: 'Verificador General' },
-    { user: 'admin',       pass: 'Campeon2026', nombre: 'Administrador' }
-  ];
+  /* ── SESIÓN ───────────────────────────────────────────────────── */
   const SESSION_KEY = 'mdd2026_verificador_session';
 
   /* ── ESTADO EN MEMORIA ────────────────────────────────────────── */
@@ -625,18 +617,19 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
     if (saved) {
       try {
         const session = JSON.parse(saved);
-        if (session && session.nombre) {
+        if (session && session.nombre && session.token) {
           mostrarPanel(session.nombre);
           return;
         }
       } catch (e) { /* sesión corrupta, ignorar */ }
     }
 
-    $('loginForm').addEventListener('submit', function (e) {
+    $('loginForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-      const user = $('loginUser').value.trim();
-      const pass = $('loginPass').value;
-      const errBox = $('loginError');
+      const user    = $('loginUser').value.trim();
+      const pass    = $('loginPass').value;
+      const errBox  = $('loginError');
+      const btn     = $('loginBtn');
       errBox.style.display = 'none';
 
       if (!user || !pass) {
@@ -645,18 +638,33 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
         return;
       }
 
-      const found = USUARIOS_VERIFICADOR.find(function (u) {
-        return u.user.toLowerCase() === user.toLowerCase() && u.pass === pass;
-      });
+      btn.disabled    = true;
+      btn.textContent = 'Verificando...';
 
-      if (!found) {
-        errBox.textContent = '❌ Usuario o contraseña incorrectos.';
+      try {
+        const params = new URLSearchParams({ action: 'login', usuario: user, password: pass });
+        const res    = await fetch(VERIF_POST_URL + '?' + params.toString());
+        const data   = await res.json();
+
+        if (data.result === 'ok' && data.token) {
+          sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+            user:   user,
+            nombre: data.usuario || user,
+            token:  data.token
+          }));
+          mostrarPanel(data.usuario || user);
+        } else {
+          errBox.textContent = '❌ ' + (data.mensaje || 'Usuario o contraseña incorrectos.');
+          errBox.style.display = 'block';
+        }
+      } catch (err) {
+        errBox.textContent = '❌ Error de conexión con el servidor. Intenta nuevamente.';
         errBox.style.display = 'block';
-        return;
+        console.error('Error en login:', err);
+      } finally {
+        btn.disabled    = false;
+        btn.textContent = 'Ingresar';
       }
-
-      sessionStorage.setItem(SESSION_KEY, JSON.stringify({ user: found.user, nombre: found.nombre }));
-      mostrarPanel(found.nombre);
     });
   }
 
@@ -1104,23 +1112,39 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
   }
 
   /**
+   * getToken()
+   * Recupera el token de sesión guardado tras el login.
+   */
+  function getToken() {
+    try {
+      const session = JSON.parse(sessionStorage.getItem(SESSION_KEY) || '{}');
+      return session.token || '';
+    } catch (e) { return ''; }
+  }
+
+  /**
    * enviarAlBackend(payload)
-   * Función central de envío. Usa FormData (igual que index1106.html)
-   * para evitar problemas de preflight CORS con Apps Script.
+   * Función central de envío. Adjunta el token de sesión, usa FormData
+   * para evitar preflight CORS con Apps Script, y lanza error si
+   * el servidor devuelve result != 'ok'.
    */
   async function enviarAlBackend(payload) {
-    try {
-      const formData = new FormData();
-      formData.append('data', JSON.stringify(payload));
-      await fetch(VERIF_POST_URL, {
-        method: 'POST',
-        body: formData
-      });
-      return true;
-    } catch (err) {
-      console.error('Error al enviar al backend:', err);
-      return false;
+    const token = getToken();
+    if (!token) {
+      throw new Error('Sin sesión activa. Por favor vuelve a iniciar sesión.');
     }
+
+    const fullPayload = Object.assign({ token: token }, payload);
+    const formData    = new FormData();
+    formData.append('data', JSON.stringify(fullPayload));
+
+    const res  = await fetch(VERIF_POST_URL, { method: 'POST', body: formData });
+    const data = await res.json();
+
+    if (data.result !== 'ok') {
+      throw new Error(data.mensaje || 'El servidor rechazó la operación.');
+    }
+    return true;
   }
 
   /* ════════════════════════════════════════════════════════════════
