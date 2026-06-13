@@ -6,277 +6,162 @@
 <title>Panel Verificador — XXIV Campeonato Regional del Sur</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
-/* ══════════════════════════════════════════════════════════════
-   PALETA Y BASE — idéntica a index1106.html
-   ══════════════════════════════════════════════════════════════ */
 :root {
-  --rojo:        #C8102E;
-  --rojo-oscuro: #8B0A1E;
-  --dorado:      #F0A500;
-  --dorado-claro:#FFD166;
-  --verde:       #2D6A4F;
-  --negro:       #0D0D0D;
-  --gris-oscuro: #1A1A2E;
-  --gris-claro:  #F4F4F6;
-  --texto:       #2A2A2A;
-  --blanco:      #FFFFFF;
-  --nav-h:       62px;
+  --rojo:#C8102E; --rojo-oscuro:#8B0A1E; --dorado:#F0A500; --dorado-claro:#FFD166;
+  --verde:#2D6A4F; --negro:#0D0D0D; --gris-oscuro:#1A1A2E; --gris-claro:#F4F4F6;
+  --texto:#2A2A2A; --blanco:#FFFFFF; --nav-h:62px;
 }
-*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
-html { font-size:clamp(14px,0.85vw + 0.55rem,17px); }
-body {
-  font-family:'Barlow',sans-serif;
-  background:var(--gris-claro);
-  color:var(--texto);
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:clamp(14px,0.85vw + 0.55rem,17px);}
+body{font-family:'Barlow',sans-serif;background:var(--gris-claro);color:var(--texto);line-height:1.6;-webkit-font-smoothing:antialiased;}
 
-/* ── NAV (mismo look oscuro/dorado del sistema principal) ── */
-nav { background:var(--negro); border-bottom:3px solid var(--dorado); position:sticky; top:0; z-index:500; }
-.nav-inner { max-width:1300px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:0 20px; height:var(--nav-h); gap:10px; flex-wrap:wrap; }
-.nav-logo { font-family:'Bebas Neue',sans-serif; font-size:1rem; color:var(--dorado); letter-spacing:1px; display:flex; align-items:center; gap:8px; white-space:nowrap; }
-.nav-logo span { color:var(--blanco); }
-.nav-tag { background:var(--rojo); color:var(--blanco); font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:4px 10px; border-radius:3px; }
-.nav-right { display:flex; align-items:center; gap:12px; }
-.nav-user { color:#ccc; font-size:0.78rem; font-weight:600; }
-.nav-user b { color:var(--dorado); }
-.btn-logout {
-  background:transparent; border:2px solid rgba(255,255,255,0.25); color:var(--blanco);
-  padding:6px 14px; border-radius:5px; font-family:'Barlow Condensed',sans-serif;
-  font-size:0.7rem; font-weight:700; letter-spacing:1px; text-transform:uppercase;
-  cursor:pointer; transition:all 0.2s;
-}
-.btn-logout:hover { border-color:var(--rojo); color:var(--rojo); }
+nav{background:var(--negro);border-bottom:3px solid var(--dorado);position:sticky;top:0;z-index:500;}
+.nav-inner{max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:var(--nav-h);gap:10px;flex-wrap:wrap;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--dorado);letter-spacing:1px;display:flex;align-items:center;gap:8px;white-space:nowrap;}
+.nav-logo span{color:var(--blanco);}
+.nav-tag{background:var(--rojo);color:var(--blanco);font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:3px;}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.nav-user{color:#ccc;font-size:0.78rem;font-weight:600;}
+.nav-user b{color:var(--dorado);}
+.btn-logout{background:transparent;border:2px solid rgba(255,255,255,0.25);color:var(--blanco);padding:6px 14px;border-radius:5px;font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.btn-logout:hover{border-color:var(--rojo);color:var(--rojo);}
 
-/* ── CONTENEDOR GENERAL ── */
-.container { width:min(1300px,95%); margin:0 auto; padding:30px 0 70px; }
-.section-header { text-align:center; margin-bottom:30px; }
-.section-tag { display:inline-block; background:var(--rojo); color:var(--blanco); font-size:0.68rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; padding:4px 14px; border-radius:2px; margin-bottom:10px; }
-.section-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(1.6rem,4vw,2.4rem); letter-spacing:2px; color:var(--negro); }
-.section-title span { color:var(--rojo); }
-.divider { width:60px; height:4px; background:var(--dorado); margin:10px auto 0; }
+.container{width:min(1300px,95%);margin:0 auto;padding:30px 0 70px;}
+.section-header{text-align:center;margin-bottom:30px;}
+.section-tag{display:inline-block;background:var(--rojo);color:var(--blanco);font-size:0.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:4px 14px;border-radius:2px;margin-bottom:10px;}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:2px;color:var(--negro);}
+.section-title span{color:var(--rojo);}
+.divider{width:60px;height:4px;background:var(--dorado);margin:10px auto 0;}
 
-/* ── PANTALLA DE LOGIN ── */
-#loginScreen {
-  min-height:calc(100vh - var(--nav-h));
-  display:flex; align-items:center; justify-content:center;
-  background:linear-gradient(135deg,#0a1628 0%,#1a0a0a 50%,#2d1b00 100%);
-  padding:30px 20px;
-}
-.login-card {
-  background:var(--gris-oscuro); color:var(--blanco);
-  border:1px solid rgba(240,165,0,0.25); border-radius:12px;
-  padding:36px 30px; width:100%; max-width:380px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.4);
-  text-align:center;
-}
-.login-card h2 { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:2px; color:var(--dorado); margin-bottom:6px; }
-.login-card p { font-size:0.78rem; color:#aaa; margin-bottom:22px; }
-.login-field { margin-bottom:14px; text-align:left; }
-.login-field label { display:block; font-size:0.7rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#ccc; margin-bottom:5px; }
-.login-field input {
-  width:100%; padding:10px 12px; border-radius:6px; border:1px solid rgba(255,255,255,0.15);
-  background:var(--negro); color:var(--blanco); font-family:'Barlow',sans-serif; font-size:0.9rem;
-}
-.login-field input:focus { outline:none; border-color:var(--dorado); }
-.login-error {
-  background:rgba(200,16,46,0.15); border:1px solid var(--rojo); color:#ff9a9a;
-  font-size:0.75rem; padding:8px 10px; border-radius:5px; margin-bottom:12px; display:none;
-}
+#loginScreen{min-height:calc(100vh - var(--nav-h));display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a1628 0%,#1a0a0a 50%,#2d1b00 100%);padding:30px 20px;}
+.login-card{background:var(--gris-oscuro);color:var(--blanco);border:1px solid rgba(240,165,0,0.25);border-radius:12px;padding:36px 30px;width:100%;max-width:380px;box-shadow:0 10px 40px rgba(0,0,0,0.4);text-align:center;}
+.login-card h2{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:2px;color:var(--dorado);margin-bottom:6px;}
+.login-card p{font-size:0.78rem;color:#aaa;margin-bottom:22px;}
+.login-field{margin-bottom:14px;text-align:left;}
+.login-field label{display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#ccc;margin-bottom:5px;}
+.login-field input{width:100%;padding:10px 12px;border-radius:6px;border:1px solid rgba(255,255,255,0.15);background:var(--negro);color:var(--blanco);font-family:'Barlow',sans-serif;font-size:0.9rem;}
+.login-field input:focus{outline:none;border-color:var(--dorado);}
+.login-error{background:rgba(200,16,46,0.15);border:1px solid var(--rojo);color:#ff9a9a;font-size:0.75rem;padding:8px 10px;border-radius:5px;margin-bottom:12px;display:none;}
 
-/* ── BOTONES (degradado dorado, igual estética) ── */
-.btn-primary {
-  background:linear-gradient(135deg,var(--dorado),var(--dorado-claro));
-  color:var(--negro); padding:11px 26px; font-weight:700; font-size:0.82rem;
-  letter-spacing:1px; text-transform:uppercase; border:none; cursor:pointer;
-  border-radius:6px; width:100%; transition:all 0.2s;
-}
-.btn-primary:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(240,165,0,0.35); }
-.btn-primary:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+.btn-primary{background:linear-gradient(135deg,var(--dorado),var(--dorado-claro));color:var(--negro);padding:11px 26px;font-weight:700;font-size:0.82rem;letter-spacing:1px;text-transform:uppercase;border:none;cursor:pointer;border-radius:6px;width:100%;transition:all 0.2s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(240,165,0,0.35);}
+.btn-primary:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.btn-sm{background:linear-gradient(135deg,var(--dorado),var(--dorado-claro));color:var(--negro);padding:7px 16px;font-weight:700;font-size:0.72rem;letter-spacing:0.6px;text-transform:uppercase;border:none;cursor:pointer;border-radius:5px;transition:all 0.2s;}
+.btn-sm:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(240,165,0,0.3);}
+.btn-sm:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.btn-outline{background:transparent;color:var(--negro);border:2px solid var(--dorado);padding:6px 15px;font-weight:700;font-size:0.72rem;letter-spacing:0.6px;text-transform:uppercase;border-radius:5px;cursor:pointer;transition:all 0.2s;}
+.btn-outline:hover{background:var(--dorado);}
+.btn-rojo{background:linear-gradient(135deg,var(--rojo),var(--rojo-oscuro));color:var(--blanco);padding:7px 16px;font-weight:700;font-size:0.72rem;letter-spacing:0.6px;text-transform:uppercase;border:none;cursor:pointer;border-radius:5px;transition:all 0.2s;}
+.btn-rojo:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(200,16,46,0.35);}
+.btn-verde{background:linear-gradient(135deg,#27ae60,#1e8449);color:var(--blanco);padding:7px 16px;font-weight:700;font-size:0.72rem;letter-spacing:0.6px;text-transform:uppercase;border:none;cursor:pointer;border-radius:5px;transition:all 0.2s;}
+.btn-verde:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(39,174,96,0.35);}
 
-.btn-sm {
-  background:linear-gradient(135deg,var(--dorado),var(--dorado-claro));
-  color:var(--negro); padding:7px 16px; font-weight:700; font-size:0.72rem;
-  letter-spacing:0.6px; text-transform:uppercase; border:none; cursor:pointer;
-  border-radius:5px; transition:all 0.2s;
-}
-.btn-sm:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(240,165,0,0.3); }
-.btn-outline {
-  background:transparent; color:var(--negro); border:2px solid var(--dorado);
-  padding:6px 15px; font-weight:700; font-size:0.72rem; letter-spacing:0.6px;
-  text-transform:uppercase; border-radius:5px; cursor:pointer; transition:all 0.2s;
-}
-.btn-outline:hover { background:var(--dorado); }
-.btn-rojo {
-  background:linear-gradient(135deg,var(--rojo),var(--rojo-oscuro));
-  color:var(--blanco); padding:7px 16px; font-weight:700; font-size:0.72rem;
-  letter-spacing:0.6px; text-transform:uppercase; border:none; cursor:pointer;
-  border-radius:5px; transition:all 0.2s;
-}
-.btn-rojo:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(200,16,46,0.35); }
+.status-bar{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:24px;font-size:0.78rem;color:#666;}
+.status-dot{width:9px;height:9px;border-radius:50%;background:#ccc;transition:background 0.3s;}
+.status-dot.ok{background:#27ae60;}
+.status-dot.err{background:var(--rojo);}
+.status-dot.loading{background:var(--dorado);animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
 
-/* ── ESTADO DE CONEXIÓN ── */
-.status-bar {
-  display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
-  margin-bottom:24px; font-size:0.78rem; color:#666;
-}
-.status-dot { width:9px; height:9px; border-radius:50%; background:#ccc; transition:background 0.3s; }
-.status-dot.ok { background:#27ae60; }
-.status-dot.err { background:var(--rojo); }
-.status-dot.loading { background:var(--dorado); animation:pulse 1s infinite; }
-@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+.panel-card{background:var(--blanco);border-radius:10px;border:1px solid rgba(240,165,0,0.2);box-shadow:0 4px 16px rgba(0,0,0,0.06);padding:20px;margin-bottom:30px;}
+.panel-card-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1.5px;color:var(--negro);margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.panel-card-title::after{content:'';flex:1;height:2px;background:var(--dorado);min-width:30px;}
+.panel-card-sub{font-size:0.75rem;color:#777;margin-bottom:14px;}
 
-/* ── TABLA DE PARTIDOS (Fixture) ── */
-.panel-card {
-  background:var(--blanco); border-radius:10px; border:1px solid rgba(240,165,0,0.2);
-  box-shadow:0 4px 16px rgba(0,0,0,0.06); padding:20px; margin-bottom:30px;
-}
-.panel-card-title {
-  font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:1.5px; color:var(--negro);
-  margin-bottom:14px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-}
-.panel-card-title::after { content:''; flex:1; height:2px; background:var(--dorado); min-width:30px; }
-.panel-card-sub { font-size:0.75rem; color:#777; margin-bottom:14px; }
+.fixture-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
+.fixture-toolbar-left{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1.5px;color:var(--negro);display:flex;align-items:center;gap:10px;}
+.fixture-toolbar-left::after{content:'';display:block;width:40px;height:2px;background:var(--dorado);}
 
-.table-wrap { overflow-x:auto; }
-table.partidos-table { width:100%; border-collapse:collapse; font-size:0.82rem; min-width:680px; }
-table.partidos-table th {
-  background:var(--negro); color:var(--dorado); text-align:left; padding:10px 12px;
-  font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; letter-spacing:1px;
-  text-transform:uppercase; white-space:nowrap;
-}
-table.partidos-table td { padding:10px 12px; border-bottom:1px solid var(--gris-claro); vertical-align:middle; }
-table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
-.badge-estado {
-  font-size:0.65rem; font-weight:700; letter-spacing:1px; text-transform:uppercase;
-  padding:3px 9px; border-radius:3px; display:inline-block;
-}
-.badge-live { background:var(--rojo); color:var(--blanco); }
-.badge-fin  { background:var(--verde); color:var(--blanco); }
-.badge-prox { background:var(--gris-claro); color:#888; border:1px solid #ddd; }
+.table-wrap{overflow-x:auto;}
+table.partidos-table{width:100%;border-collapse:collapse;font-size:0.82rem;min-width:700px;}
+table.partidos-table th{background:var(--negro);color:var(--dorado);text-align:left;padding:10px 12px;font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;}
+table.partidos-table td{padding:10px 12px;border-bottom:1px solid var(--gris-claro);vertical-align:middle;}
+table.partidos-table tr:hover td{background:rgba(240,165,0,0.05);}
+.badge-estado{font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:3px;display:inline-block;}
+.badge-live{background:var(--rojo);color:var(--blanco);}
+.badge-fin{background:var(--verde);color:var(--blanco);}
+.badge-prox{background:var(--gris-claro);color:#888;border:1px solid #ddd;}
+.pid-chip{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:1px;background:var(--gris-claro);color:#555;padding:2px 7px;border-radius:3px;border:1px solid #ddd;}
+.acciones-cell{display:flex;gap:6px;flex-wrap:nowrap;}
 
-/* ── MODAL ── */
-.modal-overlay {
-  display:none; position:fixed; inset:0; background:rgba(13,13,13,0.7);
-  z-index:2000; align-items:center; justify-content:center; padding:16px;
-  backdrop-filter:blur(3px);
-}
-.modal-overlay.active { display:flex; }
-.modal-box {
-  background:var(--blanco); border-radius:12px; width:100%; max-width:560px;
-  max-height:90vh; overflow-y:auto; box-shadow:0 12px 40px rgba(0,0,0,0.3);
-  border-top:5px solid var(--dorado);
-}
-.modal-header {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:18px 22px; border-bottom:1px solid var(--gris-claro);
-}
-.modal-header h3 { font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:1px; color:var(--negro); }
-.modal-header h3 span { color:var(--rojo); }
-.modal-close { background:none; border:none; font-size:1.4rem; cursor:pointer; color:#999; line-height:1; }
-.modal-close:hover { color:var(--rojo); }
-.modal-body { padding:20px 22px; }
-.modal-footer { padding:16px 22px; border-top:1px solid var(--gris-claro); display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; }
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(13,13,13,0.7);z-index:2000;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(3px);}
+.modal-overlay.active{display:flex;}
+.modal-box{background:var(--blanco);border-radius:12px;width:100%;max-width:600px;max-height:92vh;overflow-y:auto;box-shadow:0 12px 40px rgba(0,0,0,0.3);border-top:5px solid var(--dorado);}
+.modal-box.modal-sm{max-width:440px;}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--gris-claro);}
+.modal-header h3{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1px;color:var(--negro);}
+.modal-header h3 span{color:var(--rojo);}
+.modal-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:#999;line-height:1;}
+.modal-close:hover{color:var(--rojo);}
+.modal-body{padding:20px 22px;}
+.modal-footer{padding:16px 22px;border-top:1px solid var(--gris-claro);display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;}
 
-/* ── FORMULARIOS ── */
-.form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
-.form-row.single { grid-template-columns:1fr; }
-@media (max-width:520px){ .form-row { grid-template-columns:1fr; } }
-.form-field label {
-  display:block; font-size:0.7rem; font-weight:700; letter-spacing:1px;
-  text-transform:uppercase; color:#666; margin-bottom:5px;
-}
-.form-field input, .form-field select, .form-field textarea {
-  width:100%; padding:9px 11px; border:1px solid #ddd; border-radius:6px;
-  font-family:'Barlow',sans-serif; font-size:0.88rem; background:var(--blanco); color:var(--texto);
-}
-.form-field input:focus, .form-field select:focus, .form-field textarea:focus {
-  outline:none; border-color:var(--dorado); box-shadow:0 0 0 3px rgba(240,165,0,0.12);
-}
-.form-field.error input, .form-field.error select { border-color:var(--rojo); }
-.field-error-msg { color:var(--rojo); font-size:0.7rem; margin-top:4px; display:none; }
-.form-field.error .field-error-msg { display:block; }
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.form-row.single{grid-template-columns:1fr;}
+.form-row.triple{grid-template-columns:1fr 1fr 1fr;}
+.form-row.quad{grid-template-columns:1fr 1fr 1fr 1fr;}
+@media(max-width:520px){.form-row,.form-row.triple,.form-row.quad{grid-template-columns:1fr;}}
+.form-field label{display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:5px;}
+.form-field input,.form-field select,.form-field textarea{width:100%;padding:9px 11px;border:1px solid #ddd;border-radius:6px;font-family:'Barlow',sans-serif;font-size:0.88rem;background:var(--blanco);color:var(--texto);}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{outline:none;border-color:var(--dorado);box-shadow:0 0 0 3px rgba(240,165,0,0.12);}
+.form-field input[readonly]{background:#f8f8f8;color:#888;cursor:default;}
+.form-field.error input,.form-field.error select{border-color:var(--rojo);}
+.field-error-msg{color:var(--rojo);font-size:0.7rem;margin-top:4px;display:none;}
+.form-field.error .field-error-msg{display:block;}
+.form-section-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:0.78rem;color:var(--rojo);margin:18px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--dorado);}
+.form-section-title:first-child{margin-top:0;}
 
-.form-section-title {
-  font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:1.5px;
-  text-transform:uppercase; font-size:0.78rem; color:var(--rojo);
-  margin:18px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--dorado);
-}
-.form-section-title:first-child { margin-top:0; }
+.sets-grid{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px;}
+.set-pair{display:flex;align-items:center;gap:6px;background:var(--gris-claro);padding:7px 10px;border-radius:6px;}
+.set-pair span{font-size:0.7rem;font-weight:700;color:#888;}
+.set-pair input{width:48px;padding:5px;text-align:center;border:1px solid #ddd;border-radius:4px;}
+.set-pair .rm-set{background:none;border:none;color:var(--rojo);cursor:pointer;font-size:0.9rem;padding:0 2px;}
 
-/* Sets / parciales dinámicos */
-.sets-grid { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:6px; }
-.set-pair { display:flex; align-items:center; gap:6px; background:var(--gris-claro); padding:7px 10px; border-radius:6px; }
-.set-pair span { font-size:0.7rem; font-weight:700; color:#888; }
-.set-pair input { width:48px; padding:5px; text-align:center; border:1px solid #ddd; border-radius:4px; }
-.set-pair .rm-set { background:none; border:none; color:var(--rojo); cursor:pointer; font-size:0.9rem; padding:0 2px; }
+.tarjetas-row{display:flex;gap:10px;flex-wrap:wrap;}
+.tarjeta-box{flex:1;min-width:120px;border:1px solid #eee;border-radius:8px;padding:10px 12px;}
+.tarjeta-box.amarilla{border-left:4px solid var(--dorado);}
+.tarjeta-box.roja{border-left:4px solid var(--rojo);}
+.tarjeta-box label{font-size:0.68rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:#666;display:block;margin-bottom:6px;}
+.tarjeta-box input{width:65px;padding:6px;border:1px solid #ddd;border-radius:5px;text-align:center;}
 
-/* Tarjetas amarillas/rojas */
-.tarjetas-row { display:flex; gap:14px; flex-wrap:wrap; }
-.tarjeta-box { flex:1; min-width:140px; border:1px solid #eee; border-radius:8px; padding:10px 12px; }
-.tarjeta-box.amarilla { border-left:4px solid var(--dorado); }
-.tarjeta-box.roja { border-left:4px solid var(--rojo); }
-.tarjeta-box label { font-size:0.7rem; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; color:#666; display:block; margin-bottom:6px; }
-.tarjeta-box input { width:70px; padding:6px; border:1px solid #ddd; border-radius:5px; text-align:center; }
+.ganador-box{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:4px;}
+.ganador-btn{padding:7px 16px;border-radius:5px;border:2px solid #ddd;background:var(--blanco);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.8px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.ganador-btn.activo-a{border-color:var(--verde);background:var(--verde);color:var(--blanco);}
+.ganador-btn.activo-b{border-color:var(--verde);background:var(--verde);color:var(--blanco);}
+.ganador-btn.activo-empate{border-color:var(--dorado);background:var(--dorado);color:var(--negro);}
 
-/* Hoja 6 — sugerencia automática */
-.sugerencia-box {
-  background:var(--gris-claro); border:1px dashed var(--dorado); border-radius:8px;
-  padding:12px 14px; font-size:0.8rem; color:#555; margin-bottom:14px;
-}
-.sugerencia-box b { color:var(--negro); }
-.sugerencia-box .chip {
-  display:inline-block; background:var(--negro); color:var(--dorado);
-  font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700;
-  letter-spacing:1px; padding:2px 8px; border-radius:3px; margin:2px 3px;
-}
+.sugerencia-box{background:var(--gris-claro);border:1px dashed var(--dorado);border-radius:8px;padding:12px 14px;font-size:0.8rem;color:#555;margin-bottom:14px;}
+.sugerencia-box b{color:var(--negro);}
+.sugerencia-box .chip{display:inline-block;background:var(--negro);color:var(--dorado);font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:1px;padding:2px 8px;border-radius:3px;margin:2px 3px;}
 
-/* ── CLASIFICADOS (Hoja 4) ── */
-.clasif-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
-.clasif-card {
-  background:var(--gris-oscuro); color:var(--blanco); border-radius:8px;
-  padding:14px 14px; border:1px solid rgba(240,165,0,0.15);
-}
-.clasif-card h4 { font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:1.2px; color:var(--dorado); margin-bottom:8px; display:flex; align-items:center; gap:6px; }
-.clasif-slot { margin-bottom:8px; }
-.clasif-slot label { font-size:0.65rem; color:#aaa; letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:3px; }
-.clasif-slot select {
-  width:100%; padding:7px 9px; border-radius:5px; border:1px solid rgba(255,255,255,0.15);
-  background:var(--negro); color:var(--blanco); font-size:0.82rem;
-}
+.clasif-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+.clasif-card{background:var(--gris-oscuro);color:var(--blanco);border-radius:8px;padding:14px;border:1px solid rgba(240,165,0,0.15);}
+.clasif-card h4{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1.2px;color:var(--dorado);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.clasif-slot{margin-bottom:8px;}
+.clasif-slot label{font-size:0.65rem;color:#aaa;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px;}
+.clasif-slot select{width:100%;padding:7px 9px;border-radius:5px;border:1px solid rgba(255,255,255,0.15);background:var(--negro);color:var(--blanco);font-size:0.82rem;}
 
-/* ── TOAST / MENSAJES ── */
-#toast {
-  position:fixed; bottom:24px; right:24px; max-width:340px; z-index:3000;
-  display:flex; flex-direction:column; gap:8px;
-}
-.toast-msg {
-  padding:12px 16px; border-radius:8px; font-size:0.82rem; font-weight:600;
-  color:var(--blanco); box-shadow:0 6px 20px rgba(0,0,0,0.2);
-  animation:slideIn 0.25s ease;
-}
-.toast-msg.ok { background:var(--verde); }
-.toast-msg.err { background:var(--rojo); }
-.toast-msg.info { background:var(--gris-oscuro); border:1px solid var(--dorado); color:var(--dorado-claro); }
-@keyframes slideIn { from{opacity:0;transform:translateX(30px);} to{opacity:1;transform:translateX(0);} }
+#toast{position:fixed;bottom:24px;right:24px;max-width:340px;z-index:3000;display:flex;flex-direction:column;gap:8px;}
+.toast-msg{padding:12px 16px;border-radius:8px;font-size:0.82rem;font-weight:600;color:var(--blanco);box-shadow:0 6px 20px rgba(0,0,0,0.2);animation:slideIn 0.25s ease;}
+.toast-msg.ok{background:var(--verde);}
+.toast-msg.err{background:var(--rojo);}
+.toast-msg.info{background:var(--gris-oscuro);border:1px solid var(--dorado);color:var(--dorado-claro);}
+@keyframes slideIn{from{opacity:0;transform:translateX(30px);}to{opacity:1;transform:translateX(0);}}
 
-/* Spinner pequeño */
-.spinner-inline {
-  display:inline-block; width:14px; height:14px; border:2px solid rgba(0,0,0,0.15);
-  border-top-color:var(--negro); border-radius:50%; animation:spin 0.7s linear infinite; vertical-align:-2px;
-}
-@keyframes spin { to { transform:rotate(360deg); } }
+.spinner-inline{display:inline-block;width:14px;height:14px;border:2px solid rgba(0,0,0,0.15);border-top-color:var(--negro);border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:-2px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.empty-msg{text-align:center;color:#999;padding:30px;font-size:0.85rem;}
+code{background:var(--gris-claro);border:1px solid #ddd;border-radius:3px;padding:1px 5px;font-size:0.78rem;color:var(--rojo-oscuro);}
+#appPanel{display:none;}
 
-.empty-msg { text-align:center; color:#999; padding:30px; font-size:0.85rem; }
-#appPanel { display:none; }
+.aviso-editar{background:#fffbe6;border:1px solid var(--dorado);border-radius:7px;padding:10px 14px;font-size:0.8rem;color:#7a5c00;margin-bottom:14px;display:none;}
+.eliminar-info{background:#fff5f5;border:1px solid rgba(200,16,46,0.2);border-radius:8px;padding:14px;margin-bottom:4px;font-size:0.85rem;}
+.eliminar-info b{color:var(--rojo);}
+.goles-auto-note{font-size:0.7rem;color:#888;margin-top:3px;}
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════════════════════
-     NAV — coherente con index1106.html
-     ══════════════════════════════════════════════════════════════ -->
 <nav>
   <div class="nav-inner">
     <div class="nav-logo">🏆 CAMPEONATO REGIONAL SUR <span>— Eliana Amparo R. Molina del Carpio</span></div>
@@ -290,9 +175,7 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
   </div>
 </nav>
 
-<!-- ══════════════════════════════════════════════════════════════
-     PANTALLA DE LOGIN
-     ══════════════════════════════════════════════════════════════ -->
+<!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-card">
     <h2>🔐 Acceso Verificador</h2>
@@ -312,9 +195,7 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════
-     PANEL PRINCIPAL (visible tras login)
-     ══════════════════════════════════════════════════════════════ -->
+<!-- PANEL PRINCIPAL -->
 <div id="appPanel">
   <div class="container">
 
@@ -331,53 +212,52 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
       <button class="btn-outline" id="btnRefrescar" style="margin-left:6px;">↻ Refrescar</button>
     </div>
 
-    <!-- ── FIXTURE (Hoja 1) ── -->
+    <!-- FIXTURE (Hoja 1) -->
     <div class="panel-card">
-      <div class="panel-card-title">⚽ Fixture — Partidos Programados</div>
-      <div class="panel-card-sub">Lista de partidos cargados desde la hoja de Fixture. Selecciona "Editar" para registrar marcador, sets y tarjetas.</div>
+      <div class="fixture-toolbar">
+        <div class="fixture-toolbar-left">⚽ Fixture — Partidos Programados</div>
+        <button class="btn-verde" id="btnNuevoPartido">＋ Nuevo Partido</button>
+      </div>
+      <div class="panel-card-sub">
+        <b>✏️ Editar</b> — registra marcador, goles, tarjetas, sets y observaciones (Hojas 1 y 5).
+        <b>⚙️ Datos</b> — modifica hora, lugar, fase y equipos.
+        <b>🗑</b> — marca como eliminado.
+        El <b>ID</b> es la clave única de cada partido.
+      </div>
       <div class="table-wrap">
         <table class="partidos-table">
           <thead>
             <tr>
-              <th>Hora</th>
-              <th>Deporte</th>
-              <th>Equipo A</th>
-              <th>Equipo B</th>
-              <th>Resultado</th>
-              <th>Estado</th>
-              <th>Lugar</th>
-              <th>Acción</th>
+              <th>ID</th><th>Fase</th><th>Hora</th><th>Deporte</th>
+              <th>Equipo A</th><th>Equipo B</th><th>Resultado</th>
+              <th>Estado</th><th>Lugar</th><th>Acciones</th>
             </tr>
           </thead>
           <tbody id="partidosBody">
-            <tr><td colspan="8" class="empty-msg">Cargando partidos…</td></tr>
+            <tr><td colspan="10" class="empty-msg">Cargando partidos…</td></tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- ── SUGERENCIA AUTOMÁTICA (Hoja 6) ── -->
+    <!-- CÁLCULO (Hoja 6) -->
     <div class="panel-card">
       <div class="panel-card-title">📊 Cálculo Automático — Referencia</div>
-      <div class="panel-card-sub">Datos de solo lectura (Hoja 6). Úsalos como referencia para decidir qué registrar en Resultados (Hoja 3) y quién avanza a Semifinal (Hoja 4).</div>
+      <div class="panel-card-sub">Datos de solo lectura (Hoja 6). Úsalos como referencia para decidir quién avanza.</div>
       <div class="table-wrap">
         <table class="partidos-table" id="calculoTable">
-          <thead>
-            <tr><th colspan="6" style="text-align:center;color:#888;">Cargando datos de cálculo automático…</th></tr>
-          </thead>
+          <thead><tr><th colspan="6" style="text-align:center;color:#888;">Cargando…</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
     </div>
 
-    <!-- ── CLASIFICADOS A SEMIFINAL (Hoja 4) ── -->
+    <!-- CLASIFICADOS (Hoja 4) -->
     <div class="panel-card">
       <div class="panel-card-title">🏅 Clasificados a Semifinal</div>
-      <div class="panel-card-sub">Selecciona, por disciplina, las delegaciones que avanzan a semifinal. Se guardará en la Hoja de Semifinal.</div>
-      <div id="clasifGrid" class="clasif-grid">
-        <div class="empty-msg">Cargando disciplinas…</div>
-      </div>
-      <div style="margin-top:16px; text-align:right;">
+      <div class="panel-card-sub">Selecciona por disciplina las delegaciones que avanzan a semifinal.</div>
+      <div id="clasifGrid" class="clasif-grid"><div class="empty-msg">Cargando disciplinas…</div></div>
+      <div style="margin-top:16px;text-align:right;">
         <button class="btn-sm" id="btnGuardarSemis">💾 Guardar Clasificados</button>
       </div>
     </div>
@@ -385,20 +265,25 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════
-     MODAL — EDITAR PARTIDO
-     ══════════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════
+     MODAL: EDITAR RESULTADO (Hoja 1 + Hoja 5)
+════════════════════════════════════════════════════ -->
 <div class="modal-overlay" id="modalEditar">
   <div class="modal-box">
     <div class="modal-header">
-      <h3>Editar Partido <span id="modalPartidoLabel"></span></h3>
+      <h3>Editar Resultado <span id="modalPartidoLabel"></span></h3>
       <button class="modal-close" id="modalCloseBtn">&times;</button>
     </div>
     <div class="modal-body">
       <form id="formPartido">
         <input type="hidden" id="f-rowIndex">
+        <input type="hidden" id="f-partidoId">
+        <input type="hidden" id="f-equipoACod">
+        <input type="hidden" id="f-equipoBCod">
+        <input type="hidden" id="f-deporteCod">
 
-        <div class="form-section-title">Equipos y Marcador (Hoja 1 — Fixture)</div>
+        <!-- ── HOJA 1: MARCADOR Y ESTADO ── -->
+        <div class="form-section-title">Marcador y Estado — Hoja 1 (Fixture)</div>
         <div class="form-row">
           <div class="form-field">
             <label>Equipo A</label>
@@ -411,12 +296,12 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
         </div>
         <div class="form-row">
           <div class="form-field">
-            <label>Marcador Equipo A</label>
+            <label>Goles / Puntos — Equipo A</label>
             <input type="number" id="f-marcadorA" min="0" step="1" placeholder="0">
             <div class="field-error-msg">Ingresa un número válido (0 o mayor).</div>
           </div>
           <div class="form-field">
-            <label>Marcador Equipo B</label>
+            <label>Goles / Puntos — Equipo B</label>
             <input type="number" id="f-marcadorB" min="0" step="1" placeholder="0">
             <div class="field-error-msg">Ingresa un número válido (0 o mayor).</div>
           </div>
@@ -436,59 +321,102 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
           </div>
         </div>
 
-        <!-- ── SETS / PARCIALES (Hoja 5) ── -->
-        <div class="form-section-title">Sets / Parciales (Hoja 5 — Detalle)</div>
+        <!-- ── HOJA 5: DETALLE ── -->
+        <div class="form-section-title">Detalle del partido — Hoja 5</div>
+
+        <!-- Ganador -->
+        <div class="form-row single" style="margin-bottom:10px;">
+          <div class="form-field">
+            <label>Ganador del partido</label>
+            <div class="ganador-box">
+              <button type="button" class="ganador-btn" id="gbtnA" data-val="">— Equipo A</button>
+              <button type="button" class="ganador-btn" id="gbtnEmpate" data-val="EMPATE">Empate</button>
+              <button type="button" class="ganador-btn" id="gbtnB" data-val="">Equipo B —</button>
+            </div>
+            <input type="hidden" id="f-ganador">
+          </div>
+        </div>
+
+        <!-- Goles a favor / en contra -->
+        <div class="form-row quad">
+          <div class="form-field">
+            <label>Goles a Favor A</label>
+            <input type="number" id="f-gfA" min="0" step="1" placeholder="0">
+            <div class="goles-auto-note">Se llena igual que el marcador si no difieren.</div>
+          </div>
+          <div class="form-field">
+            <label>Goles en Contra A</label>
+            <input type="number" id="f-gcA" min="0" step="1" placeholder="0">
+          </div>
+          <div class="form-field">
+            <label>Goles a Favor B</label>
+            <input type="number" id="f-gfB" min="0" step="1" placeholder="0">
+          </div>
+          <div class="form-field">
+            <label>Goles en Contra B</label>
+            <input type="number" id="f-gcB" min="0" step="1" placeholder="0">
+          </div>
+        </div>
+
+        <!-- Sets / Parciales -->
         <div class="form-row single">
           <div class="form-field">
-            <label>Marcador por set (Equipo A — Equipo B)</label>
+            <label>Sets / Parciales (A — B por cada set)</label>
             <div class="sets-grid" id="setsContainer"></div>
             <button type="button" class="btn-outline" id="btnAddSet" style="margin-top:4px;">+ Agregar set</button>
           </div>
         </div>
 
-        <!-- ── TARJETAS (Hoja 5) ── -->
-        <div class="form-section-title">Tarjetas (Hoja 5 — Detalle)</div>
+        <!-- Tarjetas -->
         <div class="form-row">
           <div class="form-field">
+            <label>Tarjetas — Equipo A</label>
             <div class="tarjetas-row">
               <div class="tarjeta-box amarilla">
-                <label>🟨 Amarillas — Equipo A</label>
+                <label>🟨 Amarillas</label>
                 <input type="number" id="f-amarillasA" min="0" step="1" value="0">
               </div>
               <div class="tarjeta-box roja">
-                <label>🟥 Rojas — Equipo A</label>
+                <label>🟥 Rojas</label>
                 <input type="number" id="f-rojasA" min="0" step="1" value="0">
               </div>
             </div>
           </div>
           <div class="form-field">
+            <label>Tarjetas — Equipo B</label>
             <div class="tarjetas-row">
               <div class="tarjeta-box amarilla">
-                <label>🟨 Amarillas — Equipo B</label>
+                <label>🟨 Amarillas</label>
                 <input type="number" id="f-amarillasB" min="0" step="1" value="0">
               </div>
               <div class="tarjeta-box roja">
-                <label>🟥 Rojas — Equipo B</label>
+                <label>🟥 Rojas</label>
                 <input type="number" id="f-rojasB" min="0" step="1" value="0">
               </div>
             </div>
           </div>
         </div>
 
-        <!-- ── SUGERENCIA HOJA 6 ── -->
-        <div class="form-section-title">Sugerencia (Hoja 6 — Cálculo Automático)</div>
-        <div class="sugerencia-box" id="sugerenciaBox">
-          Sin datos de referencia para este partido todavía.
+        <!-- Observaciones -->
+        <div class="form-row single">
+          <div class="form-field">
+            <label>Observaciones del verificador</label>
+            <textarea id="f-observaciones" rows="2" placeholder="Ej: Partido suspendido 10 min por lluvia. Sin incidentes graves."></textarea>
+          </div>
         </div>
 
-        <!-- ── RESULTADOS A REGISTRAR (Hoja 3) ── -->
-        <div class="form-section-title">Registro en Tabla de Resultados (Hoja 3)</div>
+        <!-- Sugerencia Hoja 6 -->
+        <div class="form-section-title">Referencia — Hoja 6 (Cálculo Automático)</div>
+        <div class="sugerencia-box" id="sugerenciaBox">Sin datos de referencia para este partido todavía.</div>
+
+        <!-- Hoja 3: Resultados finales -->
+        <div class="form-section-title">Registro en Tabla de Resultados — Hoja 3</div>
         <div class="form-row">
           <div class="form-field">
-            <label>¿Registrar en Resultados?</label>
+            <label>¿Registrar puesto / podio?</label>
             <select id="f-registrarResultado">
               <option value="no">No (aún no corresponde)</option>
-              <option value="si">Sí, registrar puesto / podio</option>
+              <option value="si">Sí, registrar puesto</option>
             </select>
           </div>
           <div class="form-field">
@@ -516,120 +444,210 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════
-     MODAL — CONFIRMACIÓN ANTES DE GUARDAR
-     ══════════════════════════════════════════════════════════════ -->
-<div class="modal-overlay" id="modalConfirmar">
-  <div class="modal-box" style="max-width:440px;">
+<!-- ══════════════════════════════════════════════════
+     MODAL: DATOS DEL PARTIDO (nuevo / editar base)
+════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modalDatos">
+  <div class="modal-box">
     <div class="modal-header">
-      <h3>Confirmar <span>Guardado</span></h3>
-      <button class="modal-close" id="confirmCloseBtn">&times;</button>
+      <h3 id="modalDatosTitulo">Nuevo <span>Partido</span></h3>
+      <button class="modal-close" id="modalDatosCloseBtn">&times;</button>
     </div>
     <div class="modal-body">
-      <p style="font-size:0.88rem; color:#555;" id="confirmText">¿Confirmas que deseas guardar estos cambios? Esta acción enviará los datos a Google Sheets.</p>
+      <div class="aviso-editar" id="d-avisoEditar">
+        ⚠️ Estás editando un partido existente. El <b>Partido ID</b> no se puede cambiar (es la clave única). Si modificas Equipo A o B asegúrate de que coincidan con los datos ya registrados en la Hoja 5.
+      </div>
+      <form id="formDatos">
+        <input type="hidden" id="d-modo">
+        <input type="hidden" id="d-rowIndex">
+
+        <div class="form-section-title">Identificación</div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Partido ID <span style="color:var(--rojo)">*</span></label>
+            <input type="text" id="d-partidoId" placeholder="Ej: FUT-001" maxlength="30">
+            <div class="field-error-msg">El ID es obligatorio y debe ser único.</div>
+          </div>
+          <div class="form-field">
+            <label>Fase <span style="color:var(--rojo)">*</span></label>
+            <select id="d-fase">
+              <option value="Grupos">Grupos</option>
+              <option value="Cuartos">Cuartos de final</option>
+              <option value="Semifinal">Semifinal</option>
+              <option value="Final">Final</option>
+              <option value="Tercer puesto">Tercer puesto</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Deporte <span style="color:var(--rojo)">*</span></label>
+            <input type="text" id="d-deporte" placeholder="Ej: Fútbol, Vóley, Básquet">
+            <div class="field-error-msg">Ingresa el deporte.</div>
+          </div>
+          <div class="form-field">
+            <label>Categoría</label>
+            <input type="text" id="d-categoria" placeholder="Ej: Varones, Damas, Mixto">
+          </div>
+        </div>
+
+        <div class="form-section-title">Equipos</div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Código Equipo A <span style="color:var(--rojo)">*</span></label>
+            <input type="text" id="d-equipoA" placeholder="Ej: AQP" maxlength="10" style="text-transform:uppercase;">
+            <div class="field-error-msg">Ingresa el código del Equipo A.</div>
+          </div>
+          <div class="form-field">
+            <label>Código Equipo B <span style="color:var(--rojo)">*</span></label>
+            <input type="text" id="d-equipoB" placeholder="Ej: CUS" maxlength="10" style="text-transform:uppercase;">
+            <div class="field-error-msg">Ingresa el código del Equipo B.</div>
+          </div>
+        </div>
+
+        <div class="form-section-title">Programación</div>
+        <div class="form-row triple">
+          <div class="form-field">
+            <label>Hora</label>
+            <input type="text" id="d-hora" placeholder="Ej: 10:00 AM">
+          </div>
+          <div class="form-field">
+            <label>Lugar</label>
+            <input type="text" id="d-lugar" placeholder="Ej: Cancha 1">
+          </div>
+          <div class="form-field">
+            <label>Estado inicial</label>
+            <select id="d-estado">
+              <option value="PROX">Próximo</option>
+              <option value="LIVE">En vivo</option>
+              <option value="FIN">Finalizado</option>
+            </select>
+          </div>
+        </div>
+      </form>
     </div>
     <div class="modal-footer">
-      <button class="btn-outline" id="btnConfirmCancelar">Volver</button>
-      <button class="btn-sm" id="btnConfirmAceptar">Sí, guardar</button>
+      <button class="btn-outline" id="btnDatosCancelar">Cancelar</button>
+      <button class="btn-sm" id="btnDatosGuardar">💾 Guardar Partido</button>
     </div>
   </div>
 </div>
 
-<!-- Contenedor de notificaciones -->
+<!-- ══════════════════════════════════════════════════
+     MODAL: CONFIRMAR ELIMINACIÓN
+════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modalEliminar">
+  <div class="modal-box modal-sm">
+    <div class="modal-header">
+      <h3>Eliminar <span>Partido</span></h3>
+      <button class="modal-close" id="modalEliminarCloseBtn">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="eliminar-info" id="eliminarInfo"></div>
+      <p style="margin-top:12px;font-size:0.82rem;color:#666;">
+        Esta acción marcará el partido con <b>Estado = ELIMINADO</b> en la Hoja 1. La fila no se borra para preservar el historial.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline" id="btnEliminarCancelar">Cancelar</button>
+      <button class="btn-rojo" id="btnEliminarConfirmar">🗑 Confirmar Eliminación</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     MODAL: CONFIRMACIÓN GENÉRICA
+════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modalConfirmar">
+  <div class="modal-box modal-sm">
+    <div class="modal-header">
+      <h3>Confirmar <span>Acción</span></h3>
+      <button class="modal-close" id="confirmCloseBtn">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.88rem;color:#555;" id="confirmText">¿Confirmas que deseas guardar estos cambios?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline" id="btnConfirmCancelar">Volver</button>
+      <button class="btn-sm" id="btnConfirmAceptar">Sí, confirmar</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
-/* ══════════════════════════════════════════════════════════════════
-   PANEL VERIFICADOR — JS
-   Página independiente. NO modifica index1106.html ni sus endpoints.
-   Reutiliza las mismas hojas de Google Sheets (vía opensheet) y
-   el mismo backend de Apps Script (nuevo_scrip 4) para escritura.
-   ══════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
 
-  /* ── CONFIGURACIÓN DE ENDPOINTS ──────────────────────────────────
-     IMPORTANTE: estos valores deben coincidir con los usados en
-     index1106.html. Si tu Apps Script (nuevo_scrip 4) tiene una URL
-     /exec distinta a la del formulario de registro, reemplázala aquí.
-  ─────────────────────────────────────────────────────────────────*/
-  const SHEET_ID = '1q7Z2ktW1ixLFCHJxkE80iddu29qZvwTnfsoEyTESki0';
+  /* ════════════════════════════════════════════════
+     CONFIGURACIÓN
+  ════════════════════════════════════════════════ */
+  const SHEET_ID       = '1q7Z2ktW1ixLFCHJxkE80iddu29qZvwTnfsoEyTESki0';
+  const FIXTURE_URL    = `https://opensheet.elk.sh/${SHEET_ID}/Hoja%201`;
+  const SEMIFINAL_URL  = `https://opensheet.elk.sh/${SHEET_ID}/Hoja%204`;
+  const DETALLE_URL    = `https://opensheet.elk.sh/${SHEET_ID}/Hoja%205`;
+  const CALCULO_URL    = `https://opensheet.elk.sh/${SHEET_ID}/Hoja%206`;
+  const VERIF_POST_URL = 'https://script.google.com/macros/s/AKfycbyFDxh4WpufofWVZR96CcMgv_NQsOhMOZNLJtzZQS21pc92Z2pvNUH5_K_v7toeYdAqBA/exec';
+  const POLL_MS        = 60000;
+  const SESSION_KEY    = 'mdd2026_verificador_session';
 
-  // Lectura (solo lectura, vía opensheet — igual que index1106.html)
-  const FIXTURE_URL    = `https://opensheet.elk.sh/${SHEET_ID}/Hoja%201`; // Hoja 1: Fixture
-  const RANKING_URL    = `https://opensheet.elk.sh/${SHEET_ID}/Hoja%202`; // Hoja 2: Tabla final (solo lectura aquí)
-  const RESULTADOS_URL = `https://opensheet.elk.sh/${SHEET_ID}/Hoja%203`; // Hoja 3: Resultados
-  const SEMIFINAL_URL  = `https://opensheet.elk.sh/${SHEET_ID}/Hoja%204`; // Hoja 4: Semifinal
-  const DETALLE_URL    = `https://opensheet.elk.sh/${SHEET_ID}/Hoja%205`; // Hoja 5: Detalle (tarjetas/sets)
-  const CALCULO_URL    = `https://opensheet.elk.sh/${SHEET_ID}/Hoja%206`; // Hoja 6: Cálculo automático (solo lectura)
-
-  // Escritura: backend Apps Script (nuevo_scrip 4).
-  // Usa la MISMA URL /exec que REG_POST_URL en index1106.html, salvo
-  // que el backend "nuevo_scrip 4" tenga su propio despliegue.
-  const VERIF_POST_URL = 'https://script.google.com/macros/s/AKfycbxPhKyqdu5jPw9KdJAkk8TDsUJdb_S_xP-8BK-5knpXb_P8Z4_vAImVCrCn3PUfT0Pq4g/exec';
-
-  const POLL_MS = 60000;
-
-  /* ── SESIÓN ───────────────────────────────────────────────────── */
-  const SESSION_KEY = 'mdd2026_verificador_session';
-
-  /* ── ESTADO EN MEMORIA ────────────────────────────────────────── */
+  /* ════════════════════════════════════════════════
+     ESTADO GLOBAL
+  ════════════════════════════════════════════════ */
   let fixtureData   = [];
   let detalleData   = [];
   let semifinalData = [];
   let calculoData   = [];
   let setCounter    = 0;
+  let pendingSaveFn = null;
+  let pendingEliminarIdx = null;
 
-  // Mapa de delegaciones (mismos códigos usados en index1106.html)
+  /* ════════════════════════════════════════════════
+     DELEGACIONES
+  ════════════════════════════════════════════════ */
   const DELEGACIONES = {
     'AQP':'Arequipa','CUS':'Cusco','MDD':'Madre de Dios','JUL':'Juliaca','TAC':'Tacna'
   };
-  function nombreDelegacion(codigo){
-    if(!codigo) return '';
-    const c = String(codigo).trim().toUpperCase();
-    return DELEGACIONES[c] || String(codigo).trim();
+  function nombreDelegacion(c) {
+    if (!c) return '';
+    const k = String(c).trim().toUpperCase();
+    return DELEGACIONES[k] || String(c).trim();
   }
 
-  /* ════════════════════════════════════════════════════════════════
-     UTILIDADES GENERALES
-  ════════════════════════════════════════════════════════════════ */
-  function $(id){ return document.getElementById(id); }
+  /* ════════════════════════════════════════════════
+     UTILIDADES
+  ════════════════════════════════════════════════ */
+  function $(id) { return document.getElementById(id); }
 
   function toast(msg, type) {
-    type = type || 'info';
-    const wrap = $('toast');
     const el = document.createElement('div');
-    el.className = 'toast-msg ' + type;
+    el.className = 'toast-msg ' + (type || 'info');
     el.textContent = msg;
-    wrap.appendChild(el);
-    setTimeout(function(){ el.remove(); }, 4500);
+    $('toast').appendChild(el);
+    setTimeout(function () { el.remove(); }, 4500);
   }
 
-  function fmtHora() {
-    return new Date().toLocaleTimeString('es-PE');
-  }
+  function fmtHora() { return new Date().toLocaleTimeString('es-PE'); }
 
-  /* ════════════════════════════════════════════════════════════════
+  /* ════════════════════════════════════════════════
      LOGIN / SESIÓN
-  ════════════════════════════════════════════════════════════════ */
+  ════════════════════════════════════════════════ */
   function initLogin() {
     const saved = sessionStorage.getItem(SESSION_KEY);
     if (saved) {
       try {
-        const session = JSON.parse(saved);
-        if (session && session.nombre && session.token) {
-          mostrarPanel(session.nombre);
-          return;
-        }
-      } catch (e) { /* sesión corrupta, ignorar */ }
+        const s = JSON.parse(saved);
+        if (s && s.nombre && s.token) { mostrarPanel(s.nombre); return; }
+      } catch (e) {}
     }
 
     $('loginForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-      const user    = $('loginUser').value.trim();
-      const pass    = $('loginPass').value;
-      const errBox  = $('loginError');
-      const btn     = $('loginBtn');
+      const user   = $('loginUser').value.trim();
+      const pass   = $('loginPass').value;
+      const errBox = $('loginError');
+      const btn    = $('loginBtn');
       errBox.style.display = 'none';
 
       if (!user || !pass) {
@@ -637,32 +655,24 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
         errBox.style.display = 'block';
         return;
       }
-
-      btn.disabled    = true;
+      btn.disabled = true;
       btn.textContent = 'Verificando...';
-
       try {
         const params = new URLSearchParams({ action: 'login', usuario: user, password: pass });
         const res    = await fetch(VERIF_POST_URL + '?' + params.toString());
         const data   = await res.json();
-
         if (data.result === 'ok' && data.token) {
-          sessionStorage.setItem(SESSION_KEY, JSON.stringify({
-            user:   user,
-            nombre: data.usuario || user,
-            token:  data.token
-          }));
+          sessionStorage.setItem(SESSION_KEY, JSON.stringify({ user, nombre: data.usuario || user, token: data.token }));
           mostrarPanel(data.usuario || user);
         } else {
           errBox.textContent = '❌ ' + (data.mensaje || 'Usuario o contraseña incorrectos.');
           errBox.style.display = 'block';
         }
       } catch (err) {
-        errBox.textContent = '❌ Error de conexión con el servidor. Intenta nuevamente.';
+        errBox.textContent = '❌ Error de conexión con el servidor.';
         errBox.style.display = 'block';
-        console.error('Error en login:', err);
       } finally {
-        btn.disabled    = false;
+        btn.disabled = false;
         btn.textContent = 'Ingresar';
       }
     });
@@ -670,9 +680,9 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
 
   function mostrarPanel(nombre) {
     $('loginScreen').style.display = 'none';
-    $('appPanel').style.display = 'block';
+    $('appPanel').style.display    = 'block';
     $('navUserInfo').style.display = 'flex';
-    $('navUserName').textContent = nombre;
+    $('navUserName').textContent   = nombre;
     iniciarPanel();
   }
 
@@ -683,72 +693,28 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
     });
   }
 
-  /* ════════════════════════════════════════════════════════════════
-     CARGA DE DATOS (Hoja 1, 4, 5, 6)
-  ════════════════════════════════════════════════════════════════ */
-
-  /**
-   * getPartidos()
-   * Obtiene la lista de partidos desde la Hoja 1 (Fixture).
-   */
-  async function getPartidos() {
-    const res = await fetch(FIXTURE_URL + '?raw=true');
+  /* ════════════════════════════════════════════════
+     CARGA DE DATOS
+  ════════════════════════════════════════════════ */
+  async function fetchJSON(url) {
+    const res = await fetch(url + '?raw=true');
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     return Array.isArray(data) ? data : [];
   }
 
-  /** Obtiene Hoja 5 (Detalle: tarjetas, sets, etc.) */
-  async function getDetalle() {
-    try {
-      const res = await fetch(DETALLE_URL + '?raw=true');
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const data = await res.json();
-      return Array.isArray(data) ? data : [];
-    } catch (e) {
-      console.warn('Detalle (Hoja 5) no disponible aún:', e);
-      return [];
-    }
-  }
-
-  /** Obtiene Hoja 4 (Semifinal / clasificados) */
-  async function getSemifinal() {
-    try {
-      const res = await fetch(SEMIFINAL_URL + '?raw=true');
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const data = await res.json();
-      return Array.isArray(data) ? data : [];
-    } catch (e) {
-      console.warn('Semifinal (Hoja 4) no disponible aún:', e);
-      return [];
-    }
-  }
-
-  /** Obtiene Hoja 6 (Cálculo automático, solo lectura) */
-  async function getCalculo() {
-    try {
-      const res = await fetch(CALCULO_URL + '?raw=true');
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const data = await res.json();
-      return Array.isArray(data) ? data : [];
-    } catch (e) {
-      console.warn('Cálculo automático (Hoja 6) no disponible aún:', e);
-      return [];
-    }
-  }
-
-  /**
-   * cargarTodo()
-   * Orquesta la carga inicial y el refresco periódico.
-   */
   async function cargarTodo() {
-    const dot = $('globalDot'), txt = $('globalStatusText'), last = $('globalLastUpdate');
-    dot.className = 'status-dot loading';
+    const dot  = $('globalDot');
+    const txt  = $('globalStatusText');
+    const last = $('globalLastUpdate');
+    dot.className   = 'status-dot loading';
     txt.textContent = 'Cargando datos…';
-
     try {
       const [fixture, detalle, semifinal, calculo] = await Promise.all([
-        getPartidos(), getDetalle(), getSemifinal(), getCalculo()
+        fetchJSON(FIXTURE_URL),
+        fetchJSON(DETALLE_URL).catch(() => []),
+        fetchJSON(SEMIFINAL_URL).catch(() => []),
+        fetchJSON(CALCULO_URL).catch(() => [])
       ]);
       fixtureData   = fixture;
       detalleData   = detalle;
@@ -759,399 +725,646 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
       renderCalculo(calculoData);
       renderClasificados(fixtureData, semifinalData);
 
-      dot.className = 'status-dot ok';
+      dot.className   = 'status-dot ok';
       txt.textContent = fixtureData.length + ' partidos cargados';
       last.textContent = ' · Actualizado: ' + fmtHora();
     } catch (err) {
-      console.error('Error al cargar datos:', err);
-      dot.className = 'status-dot err';
+      console.error(err);
+      dot.className   = 'status-dot err';
       txt.textContent = 'Error al conectar con Google Sheets';
       last.textContent = ' · ' + fmtHora();
       toast('No se pudieron cargar los datos. Verifica tu conexión.', 'err');
     }
   }
 
-  /* ════════════════════════════════════════════════════════════════
-     RENDER: TABLA DE PARTIDOS (Hoja 1 — Fixture)
-  ════════════════════════════════════════════════════════════════ */
-
-  /**
-   * renderTabla(data)
-   * Pinta la tabla de partidos con botón "Editar" por fila.
-   */
+  /* ════════════════════════════════════════════════
+     RENDER: TABLA FIXTURE
+  ════════════════════════════════════════════════ */
   function renderTabla(data) {
-    const body = $('partidosBody');
-    if (!Array.isArray(data) || data.length === 0) {
-      body.innerHTML = '<tr><td colspan="8" class="empty-msg">No hay partidos en el Fixture (Hoja 1).</td></tr>';
+    const body   = $('partidosBody');
+    const activos = (data || []).filter(r => (r.Estado || '').toUpperCase() !== 'ELIMINADO');
+
+    if (activos.length === 0) {
+      body.innerHTML = '<tr><td colspan="10" class="empty-msg">No hay partidos en el Fixture (Hoja 1).</td></tr>';
       return;
     }
 
-    body.innerHTML = data.map(function (row, idx) {
-      const estado = (row.Estado || 'PROX').toUpperCase().trim();
-      const badgeClass = estado === 'LIVE' ? 'badge-live' : estado === 'FIN' ? 'badge-fin' : 'badge-prox';
-      const badgeText  = estado === 'LIVE' ? 'En vivo' : estado === 'FIN' ? 'Finalizado' : 'Próximo';
+    body.innerHTML = activos.map(function (row) {
+      const realIdx = data.indexOf(row);
+      const estado  = (row.Estado || 'PROX').toUpperCase().trim();
+      const bClass  = estado === 'LIVE' ? 'badge-live' : estado === 'FIN' ? 'badge-fin' : 'badge-prox';
+      const bText   = estado === 'LIVE' ? 'En vivo'    : estado === 'FIN' ? 'Finalizado' : 'Próximo';
+      const pid     = row.Partido_ID || '—';
+      const fase    = row.Fase       || '—';
       const equipoA = nombreDelegacion(row.EquipoA || '—');
       const equipoB = nombreDelegacion(row.EquipoB || '—');
-      const resultado = row.Resultado || '—';
 
       return '<tr>' +
+        '<td><span class="pid-chip">' + pid + '</span></td>' +
+        '<td>' + fase + '</td>' +
         '<td>' + (row.Hora || '—') + '</td>' +
         '<td>' + (row.Deporte || '—') + '</td>' +
         '<td>' + equipoA + '</td>' +
         '<td>' + equipoB + '</td>' +
-        '<td>' + resultado + '</td>' +
-        '<td><span class="badge-estado ' + badgeClass + '">' + badgeText + '</span></td>' +
+        '<td>' + (row.Resultado || '—') + '</td>' +
+        '<td><span class="badge-estado ' + bClass + '">' + bText + '</span></td>' +
         '<td>' + (row.Lugar || '—') + '</td>' +
-        '<td><button class="btn-sm" data-idx="' + idx + '" data-action="editar">✏️ Editar</button></td>' +
+        '<td><div class="acciones-cell">' +
+          '<button class="btn-sm"      data-ridx="' + realIdx + '" data-action="editar"   title="Editar resultado">✏️</button>' +
+          '<button class="btn-outline" data-ridx="' + realIdx + '" data-action="datos"    title="Editar datos del partido">⚙️</button>' +
+          '<button class="btn-rojo"    data-ridx="' + realIdx + '" data-action="eliminar" title="Eliminar partido">🗑</button>' +
+        '</div></td>' +
       '</tr>';
     }).join('');
 
-    // Conectar botones "Editar"
-    body.querySelectorAll('button[data-action="editar"]').forEach(function (btn) {
+    body.querySelectorAll('button[data-action]').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        editarPartido(parseInt(btn.getAttribute('data-idx'), 10));
+        const ridx   = parseInt(btn.getAttribute('data-ridx'), 10);
+        const action = btn.getAttribute('data-action');
+        if (action === 'editar')   abrirModalEditar(ridx);
+        if (action === 'datos')    abrirModalDatos(ridx, 'editar');
+        if (action === 'eliminar') abrirModalEliminar(ridx);
       });
     });
   }
 
-  /* ════════════════════════════════════════════════════════════════
-     RENDER: HOJA 6 — CÁLCULO AUTOMÁTICO (solo lectura)
-  ════════════════════════════════════════════════════════════════ */
+  /* ════════════════════════════════════════════════
+     RENDER: HOJA 6
+  ════════════════════════════════════════════════ */
   function renderCalculo(data) {
     const table = $('calculoTable');
-    if (!Array.isArray(data) || data.length === 0) {
-      table.innerHTML = '<thead><tr><th style="text-align:center;color:#888;">Aún no hay datos en Hoja 6 (Cálculo automático).</th></tr></thead><tbody></tbody>';
+    if (!data || data.length === 0) {
+      table.innerHTML = '<thead><tr><th style="text-align:center;color:#888;">Aún no hay datos en Hoja 6.</th></tr></thead><tbody></tbody>';
       return;
     }
-    // Construir encabezados dinámicamente desde las claves del primer registro
-    const cols = Object.keys(data[0]);
-    const thead = '<tr>' + cols.map(function (c) { return '<th>' + c + '</th>'; }).join('') + '</tr>';
-    const tbody = data.map(function (row) {
-      return '<tr>' + cols.map(function (c) {
-        const val = row[c];
-        return '<td>' + (val === undefined || val === '' ? '—' : val) + '</td>';
-      }).join('') + '</tr>';
-    }).join('');
+    const cols  = Object.keys(data[0]);
+    const thead = '<tr>' + cols.map(c => '<th>' + c + '</th>').join('') + '</tr>';
+    const tbody = data.map(row =>
+      '<tr>' + cols.map(c => '<td>' + (row[c] === undefined || row[c] === '' ? '—' : row[c]) + '</td>').join('') + '</tr>'
+    ).join('');
     table.innerHTML = '<thead>' + thead + '</thead><tbody>' + tbody + '</tbody>';
   }
 
-  /* ════════════════════════════════════════════════════════════════
-     RENDER: CLASIFICADOS A SEMIFINAL (Hoja 4)
-  ════════════════════════════════════════════════════════════════ */
+  /* ════════════════════════════════════════════════
+     RENDER: CLASIFICADOS (Hoja 4)
+  ════════════════════════════════════════════════ */
   function renderClasificados(fixture, semifinal) {
     const grid = $('clasifGrid');
-
-    // Agrupar disciplinas únicas a partir del Fixture
     const disciplinas = {};
-    fixture.forEach(function (row) {
-      const d = (row.Deporte || '').trim();
-      if (d) disciplinas[d] = true;
+    fixture.forEach(r => {
+      const d = (r.Deporte || '').trim();
+      if (d && (r.Estado || '').toUpperCase() !== 'ELIMINADO') disciplinas[d] = true;
     });
-    const listaDisciplinas = Object.keys(disciplinas);
+    const lista = Object.keys(disciplinas);
 
-    if (listaDisciplinas.length === 0) {
+    if (lista.length === 0) {
       grid.innerHTML = '<div class="empty-msg">No se encontraron disciplinas en el Fixture.</div>';
       return;
     }
 
-    // Opciones de delegaciones disponibles
     const codigos = Object.keys(DELEGACIONES);
+    grid.innerHTML = lista.map(function (disc) {
+      const previo = (semifinal || []).find(r => (r.Deporte || '').trim() === disc) || {};
+      const sel1   = (previo.Clasificado1 || '').trim().toUpperCase();
+      const sel2   = (previo.Clasificado2 || '').trim().toUpperCase();
 
-    grid.innerHTML = listaDisciplinas.map(function (disc) {
-      // Buscar selección previa guardada en Hoja 4 para esta disciplina
-      const previo = semifinal.find(function (r) { return (r.Deporte || '').trim() === disc; }) || {};
-      const sel1 = (previo.Clasificado1 || '').trim().toUpperCase();
-      const sel2 = (previo.Clasificado2 || '').trim().toUpperCase();
-
-      function buildOptions(selected) {
-        let opts = '<option value="">— Seleccionar —</option>';
-        codigos.forEach(function (c) {
-          opts += '<option value="' + c + '"' + (c === selected ? ' selected' : '') + '>' + DELEGACIONES[c] + ' (' + c + ')</option>';
-        });
-        return opts;
+      function opts(selected) {
+        return '<option value="">— Seleccionar —</option>' +
+          codigos.map(c => `<option value="${c}"${c === selected ? ' selected' : ''}>${DELEGACIONES[c]} (${c})</option>`).join('');
       }
 
-      return '<div class="clasif-card" data-disciplina="' + disc.replace(/"/g,'&quot;') + '">' +
-        '<h4>🏆 ' + disc + '</h4>' +
-        '<div class="clasif-slot">' +
-          '<label>Clasificado 1</label>' +
-          '<select class="clasif-sel" data-slot="1">' + buildOptions(sel1) + '</select>' +
-        '</div>' +
-        '<div class="clasif-slot">' +
-          '<label>Clasificado 2</label>' +
-          '<select class="clasif-sel" data-slot="2">' + buildOptions(sel2) + '</select>' +
-        '</div>' +
-      '</div>';
+      return `<div class="clasif-card" data-disciplina="${disc.replace(/"/g, '&quot;')}">
+        <h4>🏆 ${disc}</h4>
+        <div class="clasif-slot"><label>Clasificado 1</label><select class="clasif-sel" data-slot="1">${opts(sel1)}</select></div>
+        <div class="clasif-slot"><label>Clasificado 2</label><select class="clasif-sel" data-slot="2">${opts(sel2)}</select></div>
+      </div>`;
     }).join('');
   }
 
-  /* ════════════════════════════════════════════════════════════════
-     EDITAR PARTIDO — abrir modal y precargar datos
-  ════════════════════════════════════════════════════════════════ */
-
-  /**
-   * editarPartido(idx)
-   * Abre el modal de edición precargando datos del Fixture (Hoja 1),
-   * Detalle (Hoja 5) y la sugerencia de Hoja 6.
-   */
-  function editarPartido(idx) {
+  /* ════════════════════════════════════════════════
+     MODAL EDITAR RESULTADO
+  ════════════════════════════════════════════════ */
+  function abrirModalEditar(idx) {
     const row = fixtureData[idx];
-    if (!row) {
-      toast('No se encontró el partido seleccionado.', 'err');
-      return;
-    }
+    if (!row) { toast('Partido no encontrado.', 'err'); return; }
 
-    $('f-rowIndex').value = idx;
+    $('f-rowIndex').value  = idx;
+    $('f-partidoId').value = row.Partido_ID || '';
+    $('f-equipoACod').value = row.EquipoA   || '';
+    $('f-equipoBCod').value = row.EquipoB   || '';
+    $('f-deporteCod').value = row.Deporte   || '';
+
     $('f-equipoA').value = nombreDelegacion(row.EquipoA || '');
     $('f-equipoB').value = nombreDelegacion(row.EquipoB || '');
     $('f-deporte').value = row.Deporte || '';
-    $('modalPartidoLabel').textContent = '— ' + nombreDelegacion(row.EquipoA||'') + ' vs ' + nombreDelegacion(row.EquipoB||'');
 
-    // Precargar marcador si existe (formato esperado "A-B")
+    $('modalPartidoLabel').textContent =
+      (row.Partido_ID ? '[' + row.Partido_ID + '] ' : '') +
+      nombreDelegacion(row.EquipoA || '') + ' vs ' + nombreDelegacion(row.EquipoB || '');
+
+    // Etiquetas botones ganador
+    $('gbtnA').textContent   = '🏆 ' + nombreDelegacion(row.EquipoA || 'Equipo A');
+    $('gbtnA').dataset.val   = row.EquipoA || '';
+    $('gbtnB').textContent   = '🏆 ' + nombreDelegacion(row.EquipoB || 'Equipo B');
+    $('gbtnB').dataset.val   = row.EquipoB || '';
+
     const marcador = (row.Resultado || '').split('-');
     $('f-marcadorA').value = marcador[0] ? marcador[0].trim() : '';
     $('f-marcadorB').value = marcador[1] ? marcador[1].trim() : '';
 
-    // Estado
     const estado = (row.Estado || 'PROX').toUpperCase().trim();
     $('f-estado').value = ['PROX','LIVE','FIN'].includes(estado) ? estado : 'PROX';
 
-    // Limpiar campos de error
-    document.querySelectorAll('.form-field.error').forEach(function (f) { f.classList.remove('error'); });
-
-    // Buscar registro existente en Hoja 5 (Detalle) para precargar sets y tarjetas
+    // Buscar detalle por Partido_ID (búsqueda exacta)
+    const pid     = (row.Partido_ID || '').trim();
     const detalle = detalleData.find(function (d) {
+      if (pid && (d.Partido_ID || '').trim()) return (d.Partido_ID || '').trim() === pid;
+      // Fallback si Hoja 5 no tiene Partido_ID aún
       return (d.EquipoA || '').trim().toUpperCase() === (row.EquipoA || '').trim().toUpperCase() &&
              (d.EquipoB || '').trim().toUpperCase() === (row.EquipoB || '').trim().toUpperCase() &&
              (d.Deporte || '').trim() === (row.Deporte || '').trim();
     });
 
-    // Tarjetas
-    $('f-amarillasA').value = detalle ? (detalle.AmarillasA || 0) : 0;
-    $('f-rojasA').value     = detalle ? (detalle.RojasA || 0) : 0;
-    $('f-amarillasB').value = detalle ? (detalle.AmarillasB || 0) : 0;
-    $('f-rojasB').value     = detalle ? (detalle.RojasB || 0) : 0;
+    // Rellenar campos de detalle
+    $('f-amarillasA').value  = detalle ? (detalle.AmarillasA  || 0) : 0;
+    $('f-rojasA').value      = detalle ? (detalle.RojasA       || 0) : 0;
+    $('f-amarillasB').value  = detalle ? (detalle.AmarillasB  || 0) : 0;
+    $('f-rojasB').value      = detalle ? (detalle.RojasB       || 0) : 0;
+    $('f-gfA').value         = detalle ? (detalle.GolesFA      || '') : '';
+    $('f-gcA').value         = detalle ? (detalle.GolesCA      || '') : '';
+    $('f-gfB').value         = detalle ? (detalle.GolesFB      || '') : '';
+    $('f-gcB').value         = detalle ? (detalle.GolesCB      || '') : '';
+    $('f-observaciones').value = detalle ? (detalle.Observaciones || '') : '';
 
-    // Sets / parciales
+    // Ganador
+    const ganadorPrev = detalle ? (detalle.Ganador || '') : '';
+    $('f-ganador').value = ganadorPrev;
+    actualizarBotonesGanador(ganadorPrev, row.EquipoA || '', row.EquipoB || '');
+
+    // Sets
     $('setsContainer').innerHTML = '';
     setCounter = 0;
     if (detalle && detalle.Sets) {
-      // Formato esperado: "25-20;23-25;25-18"
       String(detalle.Sets).split(';').forEach(function (par) {
-        const partes = par.split('-');
-        if (partes.length === 2) agregarSet(partes[0].trim(), partes[1].trim());
+        const p = par.split('-');
+        if (p.length === 2) agregarSet(p[0].trim(), p[1].trim());
       });
     }
-    if (setCounter === 0) agregarSet('', ''); // al menos un set vacío para iniciar
+    if (setCounter === 0) agregarSet('', '');
 
-    // Resultados (Hoja 3) — campos opcionales según decisión del verificador
-    const resultadoExistente = (function () {
-      // No precargamos automáticamente Hoja 3 por seguridad: se deja en "No"
-      return null;
-    })();
     $('f-registrarResultado').value = 'no';
-    $('podioRow').style.display = 'none';
-    $('f-categoria').value = '';
-    $('f-pos1').value = '';
-    $('f-pos2').value = '';
+    $('podioRow').style.display     = 'none';
+    $('f-categoria').value          = '';
+    $('f-pos1').value               = '';
+    $('f-pos2').value               = '';
 
-    // Sugerencia desde Hoja 6
+    document.querySelectorAll('#formPartido .form-field.error').forEach(f => f.classList.remove('error'));
     mostrarSugerenciaHoja6(row);
-
     $('modalEditar').classList.add('active');
   }
 
-  /** Agrega una fila de set (parcial) al formulario */
+  function cerrarModalEditar() { $('modalEditar').classList.remove('active'); }
+
+  // Botones ganador
+  function actualizarBotonesGanador(ganador, codA, codB) {
+    [$('gbtnA'), $('gbtnEmpate'), $('gbtnB')].forEach(b => {
+      b.classList.remove('activo-a', 'activo-b', 'activo-empate');
+    });
+    if (!ganador) return;
+    if (ganador === 'EMPATE') { $('gbtnEmpate').classList.add('activo-empate'); return; }
+    if (ganador.toUpperCase() === (codA || '').toUpperCase()) { $('gbtnA').classList.add('activo-a'); return; }
+    if (ganador.toUpperCase() === (codB || '').toUpperCase()) { $('gbtnB').classList.add('activo-b'); }
+  }
+
+  function initBotonesGanador() {
+    ['gbtnA', 'gbtnEmpate', 'gbtnB'].forEach(function (bid) {
+      $(bid).addEventListener('click', function () {
+        const val  = this.dataset.val;
+        const codA = $('f-equipoACod').value;
+        const codB = $('f-equipoBCod').value;
+        $('f-ganador').value = val;
+        actualizarBotonesGanador(val, codA, codB);
+      });
+    });
+
+    // Autocompletar goles cuando el marcador cambia
+    ['f-marcadorA','f-marcadorB'].forEach(function (id) {
+      $(id).addEventListener('change', function () {
+        const mA = $('f-marcadorA').value.trim();
+        const mB = $('f-marcadorB').value.trim();
+        if (mA !== '' && $('f-gfA').value === '') $('f-gfA').value = mA;
+        if (mB !== '' && $('f-gcA').value === '') $('f-gcA').value = mB;
+        if (mB !== '' && $('f-gfB').value === '') $('f-gfB').value = mB;
+        if (mA !== '' && $('f-gcB').value === '') $('f-gcB').value = mA;
+        // Sugerir ganador automáticamente
+        if (mA !== '' && mB !== '' && !$('f-ganador').value) {
+          const codA = $('f-equipoACod').value;
+          const codB = $('f-equipoBCod').value;
+          let g = '';
+          if (Number(mA) > Number(mB)) g = codA;
+          else if (Number(mB) > Number(mA)) g = codB;
+          else g = 'EMPATE';
+          $('f-ganador').value = g;
+          actualizarBotonesGanador(g, codA, codB);
+        }
+      });
+    });
+  }
+
   function agregarSet(valA, valB) {
     setCounter++;
-    const id = 'set-' + setCounter;
     const wrap = document.createElement('div');
     wrap.className = 'set-pair';
-    wrap.setAttribute('data-set-id', id);
     wrap.innerHTML =
       '<span>Set ' + setCounter + '</span>' +
       '<input type="number" min="0" step="1" class="set-a" value="' + (valA || '') + '" placeholder="A">' +
       '<span>-</span>' +
       '<input type="number" min="0" step="1" class="set-b" value="' + (valB || '') + '" placeholder="B">' +
       '<button type="button" class="rm-set" title="Eliminar set">✕</button>';
-    wrap.querySelector('.rm-set').addEventListener('click', function () {
-      wrap.remove();
-    });
+    wrap.querySelector('.rm-set').addEventListener('click', function () { wrap.remove(); });
     $('setsContainer').appendChild(wrap);
   }
 
-  /**
-   * mostrarSugerenciaHoja6(row)
-   * Muestra una sugerencia automática basada en la Hoja 6 (Cálculo)
-   * para ayudar al verificador a decidir qué registrar.
-   */
   function mostrarSugerenciaHoja6(row) {
     const box = $('sugerenciaBox');
-    if (!Array.isArray(calculoData) || calculoData.length === 0) {
-      box.innerHTML = 'Sin datos de referencia disponibles en Hoja 6 todavía.';
+    if (!calculoData || calculoData.length === 0) {
+      box.innerHTML = 'Sin datos de referencia disponibles en Hoja 6.';
       return;
     }
-
-    // Buscar coincidencia por disciplina y equipos
     const match = calculoData.find(function (c) {
-      const dep = (c.Deporte || '').trim().toLowerCase();
-      const a = (c.EquipoA || c.Pos1 || '').trim().toUpperCase();
-      const b = (c.EquipoB || c.Pos2 || '').trim().toUpperCase();
-      const rowDep = (row.Deporte || '').trim().toLowerCase();
-      const rowA = (row.EquipoA || '').trim().toUpperCase();
-      const rowB = (row.EquipoB || '').trim().toUpperCase();
-      return dep === rowDep && ((a === rowA && b === rowB) || (a === rowB && b === rowA));
+      const dep  = (c.Deporte || '').trim().toLowerCase();
+      const a    = (c.EquipoA || c.Pos1 || '').trim().toUpperCase();
+      const b    = (c.EquipoB || c.Pos2 || '').trim().toUpperCase();
+      const rDep = (row.Deporte || '').trim().toLowerCase();
+      const rA   = (row.EquipoA || '').trim().toUpperCase();
+      const rB   = (row.EquipoB || '').trim().toUpperCase();
+      return dep === rDep && ((a === rA && b === rB) || (a === rB && b === rA));
     });
-
     if (!match) {
-      box.innerHTML = 'No se encontró una recomendación específica para este partido en Hoja 6. Verifica manualmente con la tabla de cálculo automático arriba.';
+      box.innerHTML = 'No se encontró recomendación específica para este partido en Hoja 6.';
       return;
     }
-
-    let html = '<b>Sugerencia para ' + (row.Deporte || '') + ':</b><br>';
+    let html = '<b>Referencia Hoja 6 — ' + (row.Deporte || '') + ':</b><br>';
     Object.keys(match).forEach(function (k) {
-      if (match[k] !== '' && match[k] !== undefined) {
+      if (match[k] !== '' && match[k] !== undefined)
         html += '<span class="chip">' + k + ': ' + match[k] + '</span>';
-      }
     });
     box.innerHTML = html;
   }
 
-  /* ════════════════════════════════════════════════════════════════
-     VALIDACIÓN DEL FORMULARIO
-  ════════════════════════════════════════════════════════════════ */
-  function validarFormularioPartido() {
-    let valido = true;
-    document.querySelectorAll('#formPartido .form-field.error').forEach(function (f) {
-      f.classList.remove('error');
+  /* ════════════════════════════════════════════════
+     MODAL DATOS PARTIDO (nuevo / editar base)
+  ════════════════════════════════════════════════ */
+  function abrirModalDatos(idx, modo) {
+    $('d-modo').value     = modo;
+    $('d-rowIndex').value = idx !== null ? idx : '';
+    $('d-avisoEditar').style.display = modo === 'editar' ? 'block' : 'none';
+    document.querySelectorAll('#formDatos .form-field.error').forEach(f => f.classList.remove('error'));
+
+    if (modo === 'nuevo') {
+      $('modalDatosTitulo').innerHTML   = 'Nuevo <span>Partido</span>';
+      $('d-partidoId').value            = '';
+      $('d-fase').value                 = 'Grupos';
+      $('d-deporte').value              = '';
+      $('d-categoria').value            = '';
+      $('d-equipoA').value              = '';
+      $('d-equipoB').value              = '';
+      $('d-hora').value                 = '';
+      $('d-lugar').value                = '';
+      $('d-estado').value               = 'PROX';
+      $('d-partidoId').readOnly         = false;
+    } else {
+      const row = fixtureData[idx];
+      if (!row) { toast('Partido no encontrado.', 'err'); return; }
+      $('modalDatosTitulo').innerHTML   = 'Editar Datos <span>del Partido</span>';
+      $('d-partidoId').value            = row.Partido_ID || '';
+      $('d-fase').value                 = row.Fase       || 'Grupos';
+      $('d-deporte').value              = row.Deporte    || '';
+      $('d-categoria').value            = row.Categoria  || '';
+      $('d-equipoA').value              = (row.EquipoA   || '').toUpperCase();
+      $('d-equipoB').value              = (row.EquipoB   || '').toUpperCase();
+      $('d-hora').value                 = row.Hora       || '';
+      $('d-lugar').value                = row.Lugar      || '';
+      $('d-estado').value               = (row.Estado    || 'PROX').toUpperCase();
+      $('d-partidoId').readOnly         = true;
+    }
+    $('modalDatos').classList.add('active');
+  }
+
+  function cerrarModalDatos() { $('modalDatos').classList.remove('active'); }
+
+  function validarFormDatos() {
+    let ok = true;
+    document.querySelectorAll('#formDatos .form-field.error').forEach(f => f.classList.remove('error'));
+    ['d-partidoId','d-deporte','d-equipoA','d-equipoB'].forEach(function (id) {
+      const inp = $(id);
+      if (!inp.value.trim()) { inp.closest('.form-field').classList.add('error'); ok = false; }
     });
+    const a = $('d-equipoA').value.trim().toUpperCase();
+    const b = $('d-equipoB').value.trim().toUpperCase();
+    if (a && b && a === b) {
+      const fld = $('d-equipoB').closest('.form-field');
+      fld.classList.add('error');
+      fld.querySelector('.field-error-msg').textContent = 'El Equipo B debe ser distinto al Equipo A.';
+      ok = false;
+    }
+    return ok;
+  }
 
-    const marcadorA = $('f-marcadorA');
-    const marcadorB = $('f-marcadorB');
+  async function onGuardarDatosClick() {
+    if (!validarFormDatos()) { toast('Completa los campos obligatorios.', 'err'); return; }
 
-    [marcadorA, marcadorB].forEach(function (input) {
-      const val = input.value.trim();
-      if (val !== '' && (isNaN(val) || Number(val) < 0)) {
-        input.closest('.form-field').classList.add('error');
-        valido = false;
+    const modo    = $('d-modo').value;
+    const payload = {
+      Partido_ID : $('d-partidoId').value.trim(),
+      Fase       : $('d-fase').value,
+      Deporte    : $('d-deporte').value.trim(),
+      Categoria  : $('d-categoria').value.trim(),
+      EquipoA    : $('d-equipoA').value.trim().toUpperCase(),
+      EquipoB    : $('d-equipoB').value.trim().toUpperCase(),
+      Hora       : $('d-hora').value.trim(),
+      Lugar      : $('d-lugar').value.trim(),
+      Estado     : $('d-estado').value
+    };
+    if (modo === 'nuevo') payload.Resultado = '';
+
+    const resumen = modo === 'nuevo'
+      ? `¿Crear partido [${payload.Partido_ID}] ${nombreDelegacion(payload.EquipoA)} vs ${nombreDelegacion(payload.EquipoB)} — ${payload.Deporte} (${payload.Fase})?`
+      : `¿Guardar cambios en el partido [${payload.Partido_ID}]?`;
+
+    pedirConfirmacion(resumen, async function () {
+      $('btnDatosGuardar').disabled  = true;
+      $('btnDatosGuardar').innerHTML = '<span class="spinner-inline"></span> Guardando...';
+      try {
+        await enviarAlBackend({ action: 'actualizar_fixture', ...payload });
+        toast('✅ Partido ' + (modo === 'nuevo' ? 'creado' : 'actualizado') + ' correctamente.', 'ok');
+        cerrarModalDatos();
+        cerrarConfirmacion();
+        setTimeout(cargarTodo, 1500);
+      } catch (err) {
+        console.error(err);
+        toast('❌ ' + (err.message || 'Error al guardar.'), 'err');
+      } finally {
+        $('btnDatosGuardar').disabled  = false;
+        $('btnDatosGuardar').innerHTML = '💾 Guardar Partido';
+      }
+    });
+  }
+
+  /* ════════════════════════════════════════════════
+     MODAL ELIMINAR
+  ════════════════════════════════════════════════ */
+  function abrirModalEliminar(idx) {
+    const row = fixtureData[idx];
+    if (!row) { toast('Partido no encontrado.', 'err'); return; }
+    pendingEliminarIdx = idx;
+    $('eliminarInfo').innerHTML =
+      '<b>ID:</b> ' + (row.Partido_ID || '—') + '<br>' +
+      '<b>Partido:</b> ' + nombreDelegacion(row.EquipoA || '') + ' vs ' + nombreDelegacion(row.EquipoB || '') + '<br>' +
+      '<b>Deporte:</b> ' + (row.Deporte || '—') +
+      ' &nbsp;|&nbsp; <b>Fase:</b> ' + (row.Fase || '—') +
+      ' &nbsp;|&nbsp; <b>Hora:</b> ' + (row.Hora || '—');
+    $('modalEliminar').classList.add('active');
+  }
+
+  function cerrarModalEliminar() {
+    $('modalEliminar').classList.remove('active');
+    pendingEliminarIdx = null;
+  }
+
+  async function onConfirmarEliminar() {
+    const idx = pendingEliminarIdx;
+    if (idx === null) return;
+    const row = fixtureData[idx];
+    if (!row) { toast('Partido no encontrado.', 'err'); return; }
+
+    $('btnEliminarConfirmar').disabled  = true;
+    $('btnEliminarConfirmar').innerHTML = '<span class="spinner-inline" style="border-top-color:white"></span> Eliminando...';
+    try {
+      await enviarAlBackend({
+        action     : 'actualizar_fixture',
+        Partido_ID : row.Partido_ID || '',
+        EquipoA    : row.EquipoA   || '',
+        EquipoB    : row.EquipoB   || '',
+        Deporte    : row.Deporte   || '',
+        Estado     : 'ELIMINADO'
+      });
+      toast('🗑 Partido eliminado del Fixture.', 'info');
+      cerrarModalEliminar();
+      setTimeout(cargarTodo, 1500);
+    } catch (err) {
+      console.error(err);
+      toast('❌ ' + (err.message || 'Error al eliminar.'), 'err');
+    } finally {
+      $('btnEliminarConfirmar').disabled  = false;
+      $('btnEliminarConfirmar').innerHTML = '🗑 Confirmar Eliminación';
+    }
+  }
+
+  /* ════════════════════════════════════════════════
+     VALIDACIÓN FORMULARIO RESULTADO
+  ════════════════════════════════════════════════ */
+  function validarFormularioPartido() {
+    let ok = true;
+    document.querySelectorAll('#formPartido .form-field.error').forEach(f => f.classList.remove('error'));
+
+    [$('f-marcadorA'), $('f-marcadorB')].forEach(function (inp) {
+      const v = inp.value.trim();
+      if (v !== '' && (isNaN(v) || Number(v) < 0)) {
+        inp.closest('.form-field').classList.add('error'); ok = false;
       }
     });
 
-    // Validar sets: ambos campos del par deben estar completos o ambos vacíos
+    ['f-gfA','f-gcA','f-gfB','f-gcB'].forEach(function (id) {
+      const v = $(id).value.trim();
+      if (v !== '' && (isNaN(v) || Number(v) < 0)) {
+        $(id).closest('.form-field').classList.add('error'); ok = false;
+      }
+    });
+
     document.querySelectorAll('#setsContainer .set-pair').forEach(function (pair) {
       const a = pair.querySelector('.set-a').value.trim();
       const b = pair.querySelector('.set-b').value.trim();
       if ((a === '' && b !== '') || (a !== '' && b === '')) {
-        pair.style.outline = '2px solid var(--rojo)';
-        valido = false;
+        pair.style.outline = '2px solid var(--rojo)'; ok = false;
+      } else { pair.style.outline = ''; }
+    });
+
+    if ($('f-registrarResultado').value === 'si' && !$('f-pos1').value.trim()) {
+      $('f-pos1').closest('.form-field').classList.add('error'); ok = false;
+    }
+    return ok;
+  }
+
+  /* ════════════════════════════════════════════════
+     GUARDAR RESULTADO COMPLETO
+  ════════════════════════════════════════════════ */
+  async function onGuardarPartidoClick() {
+    if (!validarFormularioPartido()) {
+      toast('Revisa los campos marcados antes de guardar.', 'err'); return;
+    }
+
+    const idx = parseInt($('f-rowIndex').value, 10);
+    const row = fixtureData[idx];
+    if (!row) { toast('Partido no encontrado.', 'err'); return; }
+
+    const pid     = row.Partido_ID || '';
+    const equipoA = row.EquipoA   || '';
+    const equipoB = row.EquipoB   || '';
+    const deporte = row.Deporte   || '';
+
+    const marcadorA = $('f-marcadorA').value.trim();
+    const marcadorB = $('f-marcadorB').value.trim();
+    const estado    = $('f-estado').value;
+    const ganador   = $('f-ganador').value;
+
+    // Goles — si vacío, heredar del marcador
+    const gfA = $('f-gfA').value.trim() !== '' ? $('f-gfA').value.trim() : marcadorA;
+    const gcA = $('f-gcA').value.trim() !== '' ? $('f-gcA').value.trim() : marcadorB;
+    const gfB = $('f-gfB').value.trim() !== '' ? $('f-gfB').value.trim() : marcadorB;
+    const gcB = $('f-gcB').value.trim() !== '' ? $('f-gcB').value.trim() : marcadorA;
+
+    const amarillasA = $('f-amarillasA').value || 0;
+    const rojasA     = $('f-rojasA').value     || 0;
+    const amarillasB = $('f-amarillasB').value || 0;
+    const rojasB     = $('f-rojasB').value     || 0;
+    const observ     = $('f-observaciones').value.trim();
+
+    const registrarResultado = $('f-registrarResultado').value === 'si';
+    const categoria = $('f-categoria').value.trim();
+    const pos1      = $('f-pos1').value.trim();
+    const pos2      = $('f-pos2').value.trim();
+
+    const sets = [];
+    document.querySelectorAll('#setsContainer .set-pair').forEach(function (pair) {
+      const a = pair.querySelector('.set-a').value.trim();
+      const b = pair.querySelector('.set-b').value.trim();
+      if (a !== '' && b !== '') sets.push(a + '-' + b);
+    });
+
+    const resultadoStr = (marcadorA !== '' && marcadorB !== '')
+      ? (marcadorA + '-' + marcadorB) : (row.Resultado || '');
+
+    const resumen = '¿Confirmas guardar el resultado de ' +
+      nombreDelegacion(equipoA) + ' vs ' + nombreDelegacion(equipoB) +
+      (pid ? ' [' + pid + ']' : '') + ' (' + deporte + ')?';
+
+    pedirConfirmacion(resumen, async function () {
+      const btn    = $('btnGuardarPartido');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-inline"></span> Guardando...';
+
+      try {
+        // Hoja 1 — Fixture: marcador, estado
+        await enviarAlBackend({
+          action     : 'actualizar_fixture',
+          Partido_ID : pid,
+          EquipoA    : equipoA,
+          EquipoB    : equipoB,
+          Deporte    : deporte,
+          Resultado  : resultadoStr,
+          Estado     : estado
+        });
+
+        // Hoja 5 — Detalle completo
+        await enviarAlBackend({
+          action        : 'actualizar_detalle',
+          Partido_ID    : pid,
+          EquipoA       : equipoA,
+          EquipoB       : equipoB,
+          Deporte       : deporte,
+          Resultado     : resultadoStr,
+          Ganador       : ganador,
+          GolesFA       : gfA,
+          GolesCA       : gcA,
+          GolesFB       : gfB,
+          GolesCB       : gcB,
+          AmarillasA    : amarillasA,
+          RojasA        : rojasA,
+          AmarillasB    : amarillasB,
+          RojasB        : rojasB,
+          Sets          : sets.join(';'),
+          Observaciones : observ
+        });
+
+        // Hoja 3 — solo si el verificador lo indicó
+        if (registrarResultado) {
+          await enviarAlBackend({
+            action    : 'actualizar_resultados',
+            Deporte   : deporte,
+            Categoria : categoria,
+            Pos1      : pos1.toUpperCase(),
+            Pos2      : pos2.toUpperCase()
+          });
+        }
+
+        toast('✅ Resultado guardado correctamente.', 'ok');
+        cerrarModalEditar();
+        cerrarConfirmacion();
+        setTimeout(cargarTodo, 1500);
+      } catch (err) {
+        console.error(err);
+        toast('❌ ' + (err.message || 'Error al guardar. Intenta nuevamente.'), 'err');
+      } finally {
+        btn.disabled  = false;
+        btn.innerHTML = '💾 Guardar Resultado';
+      }
+    });
+  }
+
+  /* ════════════════════════════════════════════════
+     GUARDAR CLASIFICADOS (Hoja 4)
+  ════════════════════════════════════════════════ */
+  async function onGuardarSemisClick() {
+    const cards = document.querySelectorAll('#clasifGrid .clasif-card');
+    if (cards.length === 0) { toast('No hay disciplinas para clasificar.', 'err'); return; }
+
+    const seleccion = [];
+    let hayError    = false;
+
+    cards.forEach(function (card) {
+      const disc = card.getAttribute('data-disciplina');
+      const sel1 = card.querySelector('.clasif-sel[data-slot="1"]').value;
+      const sel2 = card.querySelector('.clasif-sel[data-slot="2"]').value;
+      if (sel1 && sel2 && sel1 === sel2) {
+        hayError = true;
+        card.style.outline = '2px solid var(--rojo)';
       } else {
-        pair.style.outline = '';
+        card.style.outline = '';
       }
+      if (sel1 || sel2) seleccion.push({ Deporte: disc, Clasificado1: sel1, Clasificado2: sel2 });
     });
 
-    // Si se va a registrar en Hoja 3, validar que haya al menos un puesto
-    if ($('f-registrarResultado').value === 'si') {
-      const p1 = $('f-pos1').value.trim();
-      if (!p1) {
-        $('f-pos1').closest('.form-field').classList.add('error');
-        valido = false;
+    if (hayError) { toast('Un mismo equipo no puede ocupar ambos cupos.', 'err'); return; }
+    if (seleccion.length === 0) { toast('Selecciona al menos un clasificado.', 'err'); return; }
+
+    pedirConfirmacion(
+      '¿Confirmas guardar los clasificados a semifinal para ' + seleccion.length + ' disciplina(s)?',
+      async function () {
+        const btn    = $('btnGuardarSemis');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-inline"></span> Guardando...';
+        try {
+          for (const item of seleccion) {
+            await enviarAlBackend({ action: 'actualizar_semifinal', ...item });
+          }
+          toast('✅ Clasificados guardados correctamente.', 'ok');
+          cerrarConfirmacion();
+          setTimeout(cargarTodo, 1500);
+        } catch (err) {
+          console.error(err);
+          toast('❌ ' + (err.message || 'Error al guardar los clasificados.'), 'err');
+        } finally {
+          btn.disabled  = false;
+          btn.innerHTML = '💾 Guardar Clasificados';
+        }
       }
-    }
-
-    return valido;
+    );
   }
 
-  /* ════════════════════════════════════════════════════════════════
-     GUARDAR — construir payloads y enviar a Apps Script
-  ════════════════════════════════════════════════════════════════ */
-
-  /**
-   * guardarResultado(payload)
-   * Envía la actualización de marcador/estado del partido (Hoja 1)
-   * al backend de Apps Script.
-   */
-  async function guardarResultado(payload) {
-    return enviarAlBackend({
-      action: 'actualizar_fixture', // acción esperada por nuevo_scrip 4 para Hoja 1
-      ...payload
-    });
-  }
-
-  /**
-   * guardarDetalle(payload)
-   * Envía tarjetas y sets/parciales (Hoja 5) al backend.
-   */
-  async function guardarDetalle(payload) {
-    return enviarAlBackend({
-      action: 'actualizar_detalle', // acción esperada por nuevo_scrip 4 para Hoja 5
-      ...payload
-    });
-  }
-
-  /**
-   * guardarResultadoFinal(payload)
-   * Registra puestos/podio en Hoja 3, según indicación del verificador
-   * basada en Hoja 6.
-   */
-  async function guardarResultadoFinal(payload) {
-    return enviarAlBackend({
-      action: 'actualizar_resultados', // acción esperada por nuevo_scrip 4 para Hoja 3
-      ...payload
-    });
-  }
-
-  /**
-   * guardarSemifinalistas(payload)
-   * Envía los clasificados seleccionados (Hoja 4) al backend.
-   */
-  async function guardarSemifinalistas(payload) {
-    return enviarAlBackend({
-      action: 'actualizar_semifinal', // acción esperada por nuevo_scrip 4 para Hoja 4
-      ...payload
-    });
-  }
-
-  /**
-   * getToken()
-   * Recupera el token de sesión guardado tras el login.
-   */
-  function getToken() {
-    try {
-      const session = JSON.parse(sessionStorage.getItem(SESSION_KEY) || '{}');
-      return session.token || '';
-    } catch (e) { return ''; }
-  }
-
-  /**
-   * enviarAlBackend(payload)
-   * Función central de envío. Adjunta el token de sesión, usa FormData
-   * para evitar preflight CORS con Apps Script, y lanza error si
-   * el servidor devuelve result != 'ok'.
-   */
-  async function enviarAlBackend(payload) {
-    const token = getToken();
-    if (!token) {
-      throw new Error('Sin sesión activa. Por favor vuelve a iniciar sesión.');
-    }
-
-    const fullPayload = Object.assign({ token: token }, payload);
-    const formData    = new FormData();
-    formData.append('data', JSON.stringify(fullPayload));
-
-    const res  = await fetch(VERIF_POST_URL, { method: 'POST', body: formData });
-    const data = await res.json();
-
-    if (data.result !== 'ok') {
-      throw new Error(data.mensaje || 'El servidor rechazó la operación.');
-    }
-    return true;
-  }
-
-  /* ════════════════════════════════════════════════════════════════
-     CONFIRMACIÓN ANTES DE GUARDAR
-  ════════════════════════════════════════════════════════════════ */
-  let pendingSaveFn = null;
-
+  /* ════════════════════════════════════════════════
+     CONFIRMACIÓN GENÉRICA
+  ════════════════════════════════════════════════ */
   function pedirConfirmacion(mensaje, onConfirm) {
     $('confirmText').textContent = mensaje;
     pendingSaveFn = onConfirm;
@@ -1163,225 +1376,87 @@ table.partidos-table tr:hover td { background:rgba(240,165,0,0.05); }
     pendingSaveFn = null;
   }
 
-  /* ════════════════════════════════════════════════════════════════
-     GUARDAR PARTIDO COMPLETO (botón principal del modal)
-  ════════════════════════════════════════════════════════════════ */
-  async function onGuardarPartidoClick() {
-    if (!validarFormularioPartido()) {
-      toast('Revisa los campos marcados antes de guardar.', 'err');
-      return;
-    }
-
-    const idx = parseInt($('f-rowIndex').value, 10);
-    const row = fixtureData[idx];
-    if (!row) {
-      toast('Partido no encontrado.', 'err');
-      return;
-    }
-
-    const equipoA = row.EquipoA || '';
-    const equipoB = row.EquipoB || '';
-    const deporte = row.Deporte || '';
-
-    const marcadorA = $('f-marcadorA').value.trim();
-    const marcadorB = $('f-marcadorB').value.trim();
-    const estado = $('f-estado').value;
-
-    // Recolectar sets
-    const sets = [];
-    document.querySelectorAll('#setsContainer .set-pair').forEach(function (pair) {
-      const a = pair.querySelector('.set-a').value.trim();
-      const b = pair.querySelector('.set-b').value.trim();
-      if (a !== '' && b !== '') sets.push(a + '-' + b);
-    });
-
-    const amarillasA = $('f-amarillasA').value || 0;
-    const rojasA     = $('f-rojasA').value || 0;
-    const amarillasB = $('f-amarillasB').value || 0;
-    const rojasB     = $('f-rojasB').value || 0;
-
-    const registrarResultado = $('f-registrarResultado').value === 'si';
-    const categoria = $('f-categoria').value.trim();
-    const pos1 = $('f-pos1').value.trim();
-    const pos2 = $('f-pos2').value.trim();
-
-    const resumen = '¿Confirmas guardar el resultado de ' +
-      nombreDelegacion(equipoA) + ' vs ' + nombreDelegacion(equipoB) +
-      ' (' + deporte + ')? Se actualizará el Fixture, el Detalle' +
-      (registrarResultado ? ' y la Tabla de Resultados.' : '.');
-
-    pedirConfirmacion(resumen, async function () {
-      const btn = $('btnGuardarPartido');
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner-inline"></span> Guardando...';
-
-      try {
-        // 1. Hoja 1 — Fixture: marcador y estado
-        const resultadoStr = (marcadorA !== '' && marcadorB !== '')
-          ? (marcadorA + '-' + marcadorB) : (row.Resultado || '');
-
-        await guardarResultado({
-          EquipoA: equipoA,
-          EquipoB: equipoB,
-          Deporte: deporte,
-          Resultado: resultadoStr,
-          Estado: estado
-        });
-
-        // 2. Hoja 5 — Detalle: tarjetas y sets
-        await guardarDetalle({
-          EquipoA: equipoA,
-          EquipoB: equipoB,
-          Deporte: deporte,
-          AmarillasA: amarillasA,
-          RojasA: rojasA,
-          AmarillasB: amarillasB,
-          RojasB: rojasB,
-          Sets: sets.join(';')
-        });
-
-        // 3. Hoja 3 — Resultados (solo si el verificador lo indicó)
-        if (registrarResultado) {
-          await guardarResultadoFinal({
-            Deporte: deporte,
-            Categoria: categoria,
-            Pos1: pos1.toUpperCase(),
-            Pos2: pos2.toUpperCase()
-          });
-        }
-
-        toast('✅ Resultado guardado correctamente.', 'ok');
-        cerrarModalEditar();
-        cerrarConfirmacion();
-        setTimeout(cargarTodo, 1500); // refrescar datos tras guardar
-      } catch (err) {
-        console.error('Error al guardar partido:', err);
-        toast('❌ Ocurrió un error al guardar. Intenta nuevamente.', 'err');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '💾 Guardar Resultado';
-      }
-    });
+  /* ════════════════════════════════════════════════
+     TOKEN Y ENVÍO AL BACKEND
+  ════════════════════════════════════════════════ */
+  function getToken() {
+    try { return JSON.parse(sessionStorage.getItem(SESSION_KEY) || '{}').token || ''; }
+    catch (e) { return ''; }
   }
 
-  /* ════════════════════════════════════════════════════════════════
-     GUARDAR CLASIFICADOS A SEMIFINAL (Hoja 4)
-  ════════════════════════════════════════════════════════════════ */
-  async function onGuardarSemisClick() {
-    const cards = document.querySelectorAll('#clasifGrid .clasif-card');
-    if (cards.length === 0) {
-      toast('No hay disciplinas para clasificar.', 'err');
-      return;
-    }
+  async function enviarAlBackend(payload) {
+    const token = getToken();
+    if (!token) throw new Error('Sin sesión activa. Por favor vuelve a iniciar sesión.');
 
-    const seleccion = [];
-    let hayError = false;
+    const fullPayload = Object.assign({ token }, payload);
+    const formData    = new FormData();
+    formData.append('data', JSON.stringify(fullPayload));
 
-    cards.forEach(function (card) {
-      const disciplina = card.getAttribute('data-disciplina');
-      const sel1 = card.querySelector('.clasif-sel[data-slot="1"]').value;
-      const sel2 = card.querySelector('.clasif-sel[data-slot="2"]').value;
+    const res  = await fetch(VERIF_POST_URL, { method: 'POST', body: formData });
+    const data = await res.json();
 
-      if (sel1 && sel2 && sel1 === sel2) {
-        hayError = true;
-        card.style.outline = '2px solid var(--rojo)';
-      } else {
-        card.style.outline = '';
-      }
-
-      if (sel1 || sel2) {
-        seleccion.push({ Deporte: disciplina, Clasificado1: sel1, Clasificado2: sel2 });
-      }
-    });
-
-    if (hayError) {
-      toast('Un mismo equipo no puede ocupar ambos cupos de clasificación.', 'err');
-      return;
-    }
-    if (seleccion.length === 0) {
-      toast('Selecciona al menos un clasificado antes de guardar.', 'err');
-      return;
-    }
-
-    pedirConfirmacion('¿Confirmas guardar los clasificados a semifinal para ' + seleccion.length + ' disciplina(s)? Esto se registrará en la Hoja de Semifinal.', async function () {
-      const btn = $('btnGuardarSemis');
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner-inline"></span> Guardando...';
-
-      try {
-        for (const item of seleccion) {
-          await guardarSemifinalistas(item);
-        }
-        toast('✅ Clasificados guardados correctamente.', 'ok');
-        cerrarConfirmacion();
-        setTimeout(cargarTodo, 1500);
-      } catch (err) {
-        console.error('Error al guardar semifinalistas:', err);
-        toast('❌ Ocurrió un error al guardar los clasificados.', 'err');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '💾 Guardar Clasificados';
-      }
-    });
+    if (data.result !== 'ok') throw new Error(data.mensaje || 'El servidor rechazó la operación.');
+    return true;
   }
 
-  /* ════════════════════════════════════════════════════════════════
-     MODALES — abrir / cerrar
-  ════════════════════════════════════════════════════════════════ */
-  function cerrarModalEditar() {
-    $('modalEditar').classList.remove('active');
-  }
-
-  /* ════════════════════════════════════════════════════════════════
-     INICIALIZACIÓN DEL PANEL (tras login)
-  ════════════════════════════════════════════════════════════════ */
+  /* ════════════════════════════════════════════════
+     INICIALIZACIÓN
+  ════════════════════════════════════════════════ */
   function iniciarPanel() {
-    // Carga inicial + polling
     cargarTodo();
     setInterval(cargarTodo, POLL_MS);
 
-    // Botón refrescar manual
     $('btnRefrescar').addEventListener('click', cargarTodo);
 
-    // Toggle bloque de podio (Hoja 3) según selección
+    // Botones ganador y autocompletado de goles
+    initBotonesGanador();
+
+    // Nuevo partido
+    $('btnNuevoPartido').addEventListener('click', function () { abrirModalDatos(null, 'nuevo'); });
+
+    // Toggle podio
     $('f-registrarResultado').addEventListener('change', function () {
       $('podioRow').style.display = this.value === 'si' ? 'grid' : 'none';
     });
 
-    // Agregar set
+    // Sets
     $('btnAddSet').addEventListener('click', function () { agregarSet('', ''); });
 
-    // Cerrar modal editar
+    // Modal editar resultado
     $('modalCloseBtn').addEventListener('click', cerrarModalEditar);
     $('btnCancelarModal').addEventListener('click', cerrarModalEditar);
-    $('modalEditar').addEventListener('click', function (e) {
-      if (e.target === this) cerrarModalEditar();
-    });
-
-    // Guardar partido (con confirmación)
+    $('modalEditar').addEventListener('click', function (e) { if (e.target === this) cerrarModalEditar(); });
     $('btnGuardarPartido').addEventListener('click', onGuardarPartidoClick);
 
-    // Guardar clasificados (con confirmación)
-    $('btnGuardarSemis').addEventListener('click', onGuardarSemisClick);
+    // Modal datos partido
+    $('modalDatosCloseBtn').addEventListener('click', cerrarModalDatos);
+    $('btnDatosCancelar').addEventListener('click', cerrarModalDatos);
+    $('modalDatos').addEventListener('click', function (e) { if (e.target === this) cerrarModalDatos(); });
+    $('btnDatosGuardar').addEventListener('click', onGuardarDatosClick);
+    ['d-equipoA','d-equipoB'].forEach(function (id) {
+      $(id).addEventListener('input', function () { this.value = this.value.toUpperCase(); });
+    });
 
-    // Modal de confirmación
+    // Modal eliminar
+    $('modalEliminarCloseBtn').addEventListener('click', cerrarModalEliminar);
+    $('btnEliminarCancelar').addEventListener('click', cerrarModalEliminar);
+    $('modalEliminar').addEventListener('click', function (e) { if (e.target === this) cerrarModalEliminar(); });
+    $('btnEliminarConfirmar').addEventListener('click', onConfirmarEliminar);
+
+    // Confirmación genérica
     $('confirmCloseBtn').addEventListener('click', cerrarConfirmacion);
     $('btnConfirmCancelar').addEventListener('click', cerrarConfirmacion);
+    $('modalConfirmar').addEventListener('click', function (e) { if (e.target === this) cerrarConfirmacion(); });
     $('btnConfirmAceptar').addEventListener('click', function () {
       if (typeof pendingSaveFn === 'function') {
-        const fn = pendingSaveFn;
-        pendingSaveFn = null;
-        fn();
+        const fn = pendingSaveFn; pendingSaveFn = null; fn();
       }
     });
-    $('modalConfirmar').addEventListener('click', function (e) {
-      if (e.target === this) cerrarConfirmacion();
-    });
+
+    // Clasificados
+    $('btnGuardarSemis').addEventListener('click', onGuardarSemisClick);
   }
 
-  /* ════════════════════════════════════════════════════════════════
-     ARRANQUE
-  ════════════════════════════════════════════════════════════════ */
   document.addEventListener('DOMContentLoaded', function () {
     initLogin();
     initLogout();
