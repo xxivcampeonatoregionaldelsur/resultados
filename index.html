@@ -770,7 +770,7 @@ table.ranking-table tr:hover td{background:rgba(240,165,0,0.04);}
       for (var i = 0; i < attempts; i++) {
         try {
           if (i > 0) await sleep(RETRY_DELAY_MS * i);
-          var res = await fetch(url + (url.indexOf('?') >= 0 ? '&' : '?') + '_t=' + Date.now(), {
+          var res = await fetch(url, {
             cache: 'no-store',
             signal: AbortSignal.timeout ? AbortSignal.timeout(15000) : undefined
           });
