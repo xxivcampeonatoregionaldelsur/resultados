@@ -336,23 +336,35 @@ table.ranking-table tr:hover td{background:rgba(240,165,0,0.04);}
     <!-- SEMIFINALES (Hoja 4) -->
     <div class="panel-card" id="cardSemifinal">
       <div class="fixture-toolbar">
-        <div class="fixture-toolbar-left">🏆 Semifinales — Clasificados (Hoja 4)</div>
+        <div class="fixture-toolbar-left">🏆 Semifinales — Partidos (Hoja 4)</div>
         <div style="display:flex;gap:8px;align-items:center;">
           <span id="syncH4" class="sync-indicator" style="display:none;"></span>
-          <button class="btn-sm" id="btnGuardarSemis">💾 Guardar Clasificados</button>
+          <button class="btn-verde" id="btnNuevoSemi">＋ Nuevo Partido</button>
         </div>
       </div>
       <div class="panel-card-sub">
-        Define los <b>equipos clasificados</b> a semifinales por cada disciplina. Los cambios se guardan en <b>Hoja 4</b> en tiempo real.
+        <b>✏️ Editar</b> — registra marcador, estado, lugar, fase y categoría.
+        <b>🗑</b> — marca como eliminado.
+        El <b>ID</b> es la clave única de cada partido. Los cambios se guardan en <b>Hoja 4</b> en tiempo real.
+        <br><span style="color:#999;">Nota: la columna <b>Deporte</b> guarda internamente "Deporte · ID" para que cada partido sea único — en el panel se muestra limpio.</span>
       </div>
       <div id="bannerSemifinal" class="module-error-banner" style="display:none;">
         ⚠️ <span id="bannerSemifinalTxt"></span>
         <button class="retry-btn" onclick="DATA.recargar('semifinal')">↻ Reintentar</button>
       </div>
-      <div id="semisContainer">
-        <div class="semis-grid" id="semisGrid">
-          <div class="empty-msg"><span class="spinner-inline"></span> Cargando semifinales…</div>
-        </div>
+      <div class="table-wrap">
+        <table class="partidos-table">
+          <thead>
+            <tr>
+              <th>ID</th><th>Fase</th><th>Hora</th><th>Deporte</th>
+              <th>Equipo A</th><th>Equipo B</th><th>Resultado</th>
+              <th>Estado</th><th>Lugar</th><th>Categoría</th><th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="semifinalBody">
+            <tr><td colspan="11" class="empty-msg"><span class="spinner-inline"></span> Cargando semifinales…</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -668,6 +680,142 @@ table.ranking-table tr:hover td{background:rgba(240,165,0,0.04);}
     <div class="modal-footer">
       <button class="btn-outline" id="btnEliminarCancelar">Cancelar</button>
       <button class="btn-rojo" id="btnEliminarConfirmar">🗑 Confirmar Eliminación</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     MODAL: PARTIDO DE SEMIFINAL (Hoja 4)
+════════════════════════════════════ -->
+<div class="modal-overlay" id="modalSemi">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalSemiTitulo">Nuevo <span>Partido de Semifinal</span></h3>
+      <button class="modal-close" id="modalSemiCloseBtn">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="aviso-editar" id="s-avisoEditar">
+        ⚠️ Estás editando un partido existente. El <b>Partido ID</b> y el <b>Deporte</b> no se pueden cambiar.
+      </div>
+      <form id="formSemi">
+        <input type="hidden" id="s-modo">
+        <input type="hidden" id="s-rowIndex">
+        <input type="hidden" id="s-deporteRaw">
+        <div class="form-section-title">Identificación</div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Partido ID <span style="color:var(--rojo)">*</span></label>
+            <input type="text" id="s-partidoId" placeholder="Ej: SEMI-001" maxlength="30">
+            <div class="field-error-msg">El ID es obligatorio y debe ser único.</div>
+          </div>
+          <div class="form-field">
+            <label>Fase <span style="color:var(--rojo)">*</span></label>
+            <select id="s-fase">
+              <option value="Grupos">Grupos</option>
+              <option value="Cuartos">Cuartos de final</option>
+              <option value="Semifinal">Semifinal</option>
+              <option value="Final">Final</option>
+              <option value="Tercer puesto">Tercer puesto</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row single">
+          <div class="form-field">
+            <label>Deporte <span style="color:var(--rojo)">*</span></label>
+            <select id="s-deporte">
+              <option value="">— Seleccionar —</option>
+              <option value="Fútbol">⚽ Fútbol</option>
+              <option value="Básquet">🏀 Básquet</option>
+              <option value="Vóley">🏐 Vóley</option>
+              <option value="Ajedrez">♟️ Ajedrez</option>
+            </select>
+            <div class="field-error-msg">Selecciona el deporte.</div>
+          </div>
+        </div>
+        <div class="form-section-title">Equipos</div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Equipo A <span style="color:var(--rojo)">*</span></label>
+            <select id="s-equipoA">
+              <option value="">— Seleccionar —</option>
+              <option value="AQP">Arequipa (AQP)</option>
+              <option value="CUS">Cusco (CUS)</option>
+              <option value="MDD">Madre de Dios (MDD)</option>
+              <option value="JUL">Juliaca (JUL)</option>
+              <option value="TAC">Tacna (TAC)</option>
+            </select>
+            <div class="field-error-msg">Selecciona el Equipo A.</div>
+          </div>
+          <div class="form-field">
+            <label>Equipo B <span style="color:var(--rojo)">*</span></label>
+            <select id="s-equipoB">
+              <option value="">— Seleccionar —</option>
+              <option value="AQP">Arequipa (AQP)</option>
+              <option value="CUS">Cusco (CUS)</option>
+              <option value="MDD">Madre de Dios (MDD)</option>
+              <option value="JUL">Juliaca (JUL)</option>
+              <option value="TAC">Tacna (TAC)</option>
+            </select>
+            <div class="field-error-msg">Selecciona el Equipo B.</div>
+          </div>
+        </div>
+        <div class="form-section-title">Marcador y Estado</div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Resultado</label>
+            <input type="text" id="s-resultado" placeholder="Ej: 2-1">
+          </div>
+          <div class="form-field">
+            <label>Estado</label>
+            <select id="s-estado">
+              <option value="PROX">Próximo</option>
+              <option value="LIVE">En vivo</option>
+              <option value="FIN">Finalizado</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-section-title">Programación</div>
+        <div class="form-row triple">
+          <div class="form-field">
+            <label>Hora</label>
+            <input type="text" id="s-hora" placeholder="Ej: 10:00 AM">
+          </div>
+          <div class="form-field">
+            <label>Lugar</label>
+            <input type="text" id="s-lugar" placeholder="Ej: Cancha 1">
+          </div>
+          <div class="form-field">
+            <label>Categoría</label>
+            <input type="text" id="s-categoria" placeholder="Ej: Varones A">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline" id="btnSemiCancelar">Cancelar</button>
+      <button class="btn-sm" id="btnSemiGuardar">💾 Guardar Partido</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     MODAL: ELIMINAR PARTIDO DE SEMIFINAL
+════════════════════════════════════ -->
+<div class="modal-overlay" id="modalEliminarSemi">
+  <div class="modal-box modal-sm">
+    <div class="modal-header">
+      <h3>Eliminar <span>Partido de Semifinal</span></h3>
+      <button class="modal-close" id="modalEliminarSemiCloseBtn">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="eliminar-info" id="eliminarSemiInfo"></div>
+      <p style="margin-top:12px;font-size:0.82rem;color:#666;">
+        Esta acción marcará el partido con <b>Estado = ELIMINADO</b> en la Hoja 4.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline" id="btnEliminarSemiCancelar">Cancelar</button>
+      <button class="btn-rojo" id="btnEliminarSemiConfirmar">🗑 Confirmar Eliminación</button>
     </div>
   </div>
 </div>
@@ -1037,60 +1185,73 @@ table.ranking-table tr:hover td{background:rgba(240,165,0,0.04);}
   }
 
   /* ═══════════════════════════════════
-     RENDER: SEMIFINAL (Hoja 4)
+     RENDER: SEMIFINAL (Hoja 4) — tabla de partidos
+     Nota: la columna "Deporte" guarda "Deporte · Partido_ID"
+     (clave única requerida por el script original, que busca
+     por Deporte). parseDeporteSemi() extrae el nombre limpio
+     para mostrarlo en el panel.
   ════════════════════════════════════ */
+  function parseDeporteSemi(raw) {
+    var s = (raw || '').toString();
+    var i = s.indexOf(' · ');
+    return (i >= 0 ? s.slice(0, i) : s).trim();
+  }
+
   function renderSemifinal(data) {
-    var grid = $('semisGrid');
-    if (!grid) return;
+    var body = $('semifinalBody');
+    if (!body) return;
 
     if (STATE.semifinal.status === 'error' && (!data || data.length === 0)) {
-      grid.innerHTML = '<div class="empty-msg">⚠️ No se pudo cargar la Hoja 4.</div>';
+      body.innerHTML = '<tr><td colspan="11" class="empty-msg">⚠️ No se pudo cargar la Hoja 4. Usa el botón "Reintentar".</td></tr>';
       return;
     }
 
-    /* Si la Hoja 4 está vacía o no tiene datos, mostrar cards por cada deporte */
-    var deportes = DEPORTES_LISTA;
-    var dataMap  = {};
-    (data || []).forEach(function(row) {
-      var dep = (row.Deporte || '').trim();
-      if (dep) dataMap[dep] = row;
-    });
+    var activos = (data || []).filter(function(r){ return (r.Estado||'').toUpperCase() !== 'ELIMINADO'; });
+    if (activos.length === 0) {
+      body.innerHTML = '<tr><td colspan="11" class="empty-msg">No hay partidos de semifinal en la Hoja 4. Usa "＋ Nuevo Partido" para agregar uno.</td></tr>';
+      return;
+    }
 
-    /* Incluir deportes que ya están en data aunque no estén en DEPORTES_LISTA */
-    (data || []).forEach(function(row) {
-      var dep = (row.Deporte || '').trim();
-      if (dep && deportes.indexOf(dep) < 0) deportes.push(dep);
-    });
+    var iconosDep = { 'Fútbol':'⚽', 'Básquet':'🏀', 'Vóley':'🏐', 'Ajedrez':'♟️' };
 
-    var iconos = { 'Fútbol':'⚽', 'Básquet':'🏀', 'Vóley':'🏐', 'Ajedrez':'♟️' };
-    var opciones = ['', 'AQP', 'CUS', 'MDD', 'JUL', 'TAC'];
+    body.innerHTML = activos.map(function (row) {
+      var realIdx  = data.indexOf(row);
+      var estado   = (row.Estado || 'PROX').toUpperCase().trim();
+      var bClass   = estado === 'LIVE' ? 'badge-live' : estado === 'FIN' ? 'badge-fin' : 'badge-prox';
+      var bText    = estado === 'LIVE' ? 'En vivo'    : estado === 'FIN' ? 'Finalizado' : 'Próximo';
+      var pid      = row.Partido_ID || '—';
+      var fase     = row.Fase       || '—';
+      var deporte  = parseDeporteSemi(row.Deporte);
+      var icono    = iconosDep[deporte] || '🏆';
+      var equipoA  = nombreDelegacion(row.EquipoA || '—');
+      var equipoB  = nombreDelegacion(row.EquipoB || '—');
 
-    grid.innerHTML = deportes.map(function(dep) {
-      var row  = dataMap[dep] || {};
-      var icon = iconos[dep] || '🏆';
-      var c1   = (row.Clasificado1 || '').trim().toUpperCase();
-      var c2   = (row.Clasificado2 || '').trim().toUpperCase();
-
-      var opts = opciones.map(function(v) {
-        return '<option value="' + v + '"' + (v === '' ? '> — Seleccionar —' : '>' + nombreDelegacion(v) + ' (' + v + ')') + '</option>';
-      }).join('');
-
-      /* Ajustar selected */
-      var opts1 = opts.replace('value="' + c1 + '"', 'value="' + c1 + '" selected');
-      var opts2 = opts.replace('value="' + c2 + '"', 'value="' + c2 + '" selected');
-
-      return '<div class="semi-card" data-disciplina="' + escHtml(dep) + '">' +
-        '<div class="semi-card-title">' + icon + ' ' + escHtml(dep) + '</div>' +
-        '<div class="semi-slot">' +
-          '<label>🥇 Clasificado 1 <span class="semi-badge clas1">1°</span></label>' +
-          '<select class="clasif-sel" data-slot="1">' + opts1 + '</select>' +
-        '</div>' +
-        '<div class="semi-slot">' +
-          '<label>🥈 Clasificado 2 <span class="semi-badge clas2">2°</span></label>' +
-          '<select class="clasif-sel" data-slot="2">' + opts2 + '</select>' +
-        '</div>' +
-      '</div>';
+      return '<tr>' +
+        '<td><span class="pid-chip">' + escHtml(pid) + '</span></td>' +
+        '<td>' + escHtml(fase) + '</td>' +
+        '<td>' + escHtml(row.Hora || '—') + '</td>' +
+        '<td>' + icono + ' ' + escHtml(deporte || '—') + '</td>' +
+        '<td>' + escHtml(equipoA) + '</td>' +
+        '<td>' + escHtml(equipoB) + '</td>' +
+        '<td>' + escHtml(row.Resultado || '—') + '</td>' +
+        '<td><span class="badge-estado ' + bClass + '">' + bText + '</span></td>' +
+        '<td>' + escHtml(row.Lugar || '—') + '</td>' +
+        '<td>' + escHtml(row.Categoria || '—') + '</td>' +
+        '<td><div class="acciones-cell">' +
+          '<button class="btn-sm"   data-ridx="' + realIdx + '" data-action="editar"   title="Editar partido">✏️</button>' +
+          '<button class="btn-rojo" data-ridx="' + realIdx + '" data-action="eliminar" title="Eliminar partido">🗑</button>' +
+        '</div></td>' +
+      '</tr>';
     }).join('');
+
+    body.querySelectorAll('button[data-action]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var ridx   = parseInt(btn.getAttribute('data-ridx'), 10);
+        var action = btn.getAttribute('data-action');
+        if (action === 'editar')   abrirModalSemi(ridx, 'editar');
+        if (action === 'eliminar') abrirModalEliminarSemi(ridx);
+      });
+    });
   }
 
   /* ═══════════════════════════════════
@@ -1748,56 +1909,144 @@ table.ranking-table tr:hover td{background:rgba(240,165,0,0.04);}
   }
 
   /* ═══════════════════════════════════
-     GUARDAR SEMIFINALES (Hoja 4)
+     MODAL PARTIDO DE SEMIFINAL (Hoja 4)
   ════════════════════════════════════ */
-  async function onGuardarSemisClick() {
-    var cards = document.querySelectorAll('#semisGrid .semi-card');
-    if (cards.length === 0) { toast('No hay disciplinas para clasificar.', 'err'); return; }
+  function abrirModalSemi(idx, modo) {
+    $('s-modo').value     = modo;
+    $('s-rowIndex').value = idx !== null ? idx : '';
+    $('s-avisoEditar').style.display = modo === 'editar' ? 'block' : 'none';
+    document.querySelectorAll('#formSemi .form-field.error').forEach(function(f){ f.classList.remove('error'); });
 
-    var seleccion = [];
-    var hayError  = false;
+    if (modo === 'nuevo') {
+      $('modalSemiTitulo').innerHTML = 'Nuevo <span>Partido de Semifinal</span>';
+      $('s-partidoId').value = ''; $('s-fase').value = 'Semifinal';
+      $('s-deporte').value = ''; $('s-deporteRaw').value = '';
+      $('s-equipoA').value = ''; $('s-equipoB').value = '';
+      $('s-resultado').value = ''; $('s-estado').value = 'PROX';
+      $('s-hora').value = ''; $('s-lugar').value = ''; $('s-categoria').value = '';
+      $('s-partidoId').readOnly = false;
+      $('s-deporte').disabled = false;
+    } else {
+      var row = STATE.semifinal.data[idx];
+      if (!row) { toast('Partido no encontrado.', 'err'); return; }
+      $('modalSemiTitulo').innerHTML = 'Editar <span>Partido de Semifinal</span>';
+      $('s-partidoId').value = row.Partido_ID || '';
+      $('s-fase').value = row.Fase || 'Semifinal';
+      $('s-deporte').value = parseDeporteSemi(row.Deporte);
+      $('s-deporteRaw').value = row.Deporte || '';
+      $('s-equipoA').value = (row.EquipoA || '').trim().toUpperCase();
+      $('s-equipoB').value = (row.EquipoB || '').trim().toUpperCase();
+      $('s-resultado').value = row.Resultado || '';
+      $('s-estado').value = (row.Estado || 'PROX').toUpperCase();
+      $('s-hora').value = row.Hora || '';
+      $('s-lugar').value = row.Lugar || '';
+      $('s-categoria').value = row.Categoria || '';
+      $('s-partidoId').readOnly = true;
+      $('s-deporte').disabled = true;
+    }
+    $('modalSemi').classList.add('active');
+  }
 
-    cards.forEach(function(card) {
-      var disc = card.getAttribute('data-disciplina');
-      var sel1 = card.querySelector('.clasif-sel[data-slot="1"]').value;
-      var sel2 = card.querySelector('.clasif-sel[data-slot="2"]').value;
-      if (sel1 && sel2 && sel1 === sel2) {
-        hayError = true;
-        card.style.outline = '2px solid var(--rojo)';
-      } else {
-        card.style.outline = '';
-      }
-      if (sel1 || sel2) seleccion.push({ Deporte:disc, Clasificado1:sel1, Clasificado2:sel2 });
+  function cerrarModalSemi() { $('modalSemi').classList.remove('active'); }
+
+  function validarFormSemi() {
+    var ok = true;
+    document.querySelectorAll('#formSemi .form-field.error').forEach(function(f){ f.classList.remove('error'); });
+    ['s-partidoId','s-equipoA','s-equipoB'].forEach(function(id) {
+      var inp = $(id);
+      if (!inp.value.trim()) { inp.closest('.form-field').classList.add('error'); ok = false; }
     });
+    var a = $('s-equipoA').value.trim().toUpperCase();
+    var b = $('s-equipoB').value.trim().toUpperCase();
+    if (a && b && a === b) {
+      var fld = $('s-equipoB').closest('.form-field');
+      fld.classList.add('error');
+      fld.querySelector('.field-error-msg').textContent = 'El Equipo B debe ser distinto al Equipo A.';
+      ok = false;
+    }
+    return ok;
+  }
 
-    if (hayError) { toast('Un mismo equipo no puede ocupar ambos cupos.', 'err'); return; }
-    if (seleccion.length === 0) { toast('Selecciona al menos un clasificado.', 'err'); return; }
+  async function onGuardarSemiClick() {
+    if (!validarFormSemi()) { toast('Completa los campos obligatorios.', 'err'); return; }
+    var modo = $('s-modo').value;
+    var payload = {
+      Partido_ID: $('s-partidoId').value.trim(),
+      Fase:       $('s-fase').value,
+      EquipoA:    $('s-equipoA').value.trim().toUpperCase(),
+      EquipoB:    $('s-equipoB').value.trim().toUpperCase(),
+      Resultado:  $('s-resultado').value.trim(),
+      Estado:     $('s-estado').value,
+      Hora:       $('s-hora').value.trim(),
+      Lugar:      $('s-lugar').value.trim(),
+      Categoria:  $('s-categoria').value.trim()
+    };
 
-    pedirConfirmacion(
-      '¿Confirmas guardar los clasificados a semifinal para ' + seleccion.length + ' disciplina(s)?',
-      async function() {
-        var btn = $('btnGuardarSemis');
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-inline"></span> Guardando...';
-        DATA.setSyncIndicator('syncH4', 'syncing', '⏳ Guardando…');
-        try {
-          for (var i = 0; i < seleccion.length; i++) {
-            await enviarAlBackend(Object.assign({ action:'actualizar_semifinal' }, seleccion[i]));
-          }
-          toast('✅ Clasificados guardados correctamente.', 'ok');
-          DATA.setSyncIndicator('syncH4', 'ok', '✅ Guardado');
-          cerrarConfirmacion();
-          setTimeout(function(){ DATA.recargar('semifinal'); }, 1500);
-        } catch (err) {
-          console.error(err);
-          toast('❌ ' + (err.message || 'Error al guardar los clasificados.'), 'err');
-          DATA.setSyncIndicator('syncH4', 'error', '❌ Error');
-        } finally {
-          btn.disabled = false;
-          btn.innerHTML = '💾 Guardar Clasificados';
-        }
+    var resumen = modo === 'nuevo'
+      ? '¿Crear partido de semifinal [' + payload.Partido_ID + '] ' + nombreDelegacion(payload.EquipoA) + ' vs ' + nombreDelegacion(payload.EquipoB) + '?'
+      : '¿Guardar cambios en el partido de semifinal [' + payload.Partido_ID + ']?';
+
+    pedirConfirmacion(resumen, async function() {
+      var btn = $('btnSemiGuardar');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-inline"></span> Guardando...';
+      DATA.setSyncIndicator('syncH4', 'syncing', '⏳ Guardando…');
+      try {
+        await enviarAlBackend(Object.assign({ action:'actualizar_semifinal' }, payload));
+        toast('✅ Partido de semifinal ' + (modo === 'nuevo' ? 'creado' : 'actualizado') + ' correctamente.', 'ok');
+        DATA.setSyncIndicator('syncH4', 'ok', '✅ Guardado');
+        cerrarModalSemi(); cerrarConfirmacion();
+        setTimeout(function(){ DATA.recargar('semifinal'); }, 1500);
+      } catch (err) {
+        console.error(err);
+        toast('❌ ' + (err.message || 'Error al guardar.'), 'err');
+        DATA.setSyncIndicator('syncH4', 'error', '❌ Error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '💾 Guardar Partido';
       }
-    );
+    });
+  }
+
+  /* ═══════════════════════════════════
+     MODAL ELIMINAR PARTIDO DE SEMIFINAL
+  ════════════════════════════════════ */
+  var pendingEliminarSemiIdx = null;
+
+  function abrirModalEliminarSemi(idx) {
+    var row = STATE.semifinal.data[idx];
+    if (!row) { toast('Partido no encontrado.', 'err'); return; }
+    pendingEliminarSemiIdx = idx;
+    $('eliminarSemiInfo').innerHTML =
+      '<b>ID:</b> ' + escHtml(row.Partido_ID || '—') + '<br>' +
+      '<b>Partido:</b> ' + escHtml(nombreDelegacion(row.EquipoA || '')) + ' vs ' + escHtml(nombreDelegacion(row.EquipoB || '')) + '<br>' +
+      '<b>Fase:</b> ' + escHtml(row.Fase || '—') +
+      ' &nbsp;|&nbsp; <b>Hora:</b> ' + escHtml(row.Hora || '—');
+    $('modalEliminarSemi').classList.add('active');
+  }
+
+  function cerrarModalEliminarSemi() { $('modalEliminarSemi').classList.remove('active'); pendingEliminarSemiIdx = null; }
+
+  async function onConfirmarEliminarSemi() {
+    var idx = pendingEliminarSemiIdx;
+    if (idx === null) return;
+    var row = STATE.semifinal.data[idx];
+    if (!row) { toast('Partido no encontrado.', 'err'); return; }
+    var btn = $('btnEliminarSemiConfirmar');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-inline" style="border-top-color:white"></span> Eliminando...';
+    try {
+      await enviarAlBackend({ action:'actualizar_semifinal', Partido_ID:row.Partido_ID||'', EquipoA:row.EquipoA||'', EquipoB:row.EquipoB||'', Estado:'ELIMINADO' });
+      toast('🗑 Partido eliminado de Semifinales.', 'info');
+      cerrarModalEliminarSemi();
+      setTimeout(function(){ DATA.recargar('semifinal'); }, 1500);
+    } catch (err) {
+      console.error(err);
+      toast('❌ ' + (err.message || 'Error al eliminar.'), 'err');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '🗑 Confirmar Eliminación';
+    }
   }
 
   /* ═══════════════════════════════════
@@ -1947,7 +2196,16 @@ table.ranking-table tr:hover td{background:rgba(240,165,0,0.04);}
     });
 
     /* Semifinal */
-    $('btnGuardarSemis').addEventListener('click', onGuardarSemisClick);
+    $('btnNuevoSemi').addEventListener('click', function(){ abrirModalSemi(null, 'nuevo'); });
+    $('modalSemiCloseBtn').addEventListener('click', cerrarModalSemi);
+    $('btnSemiCancelar').addEventListener('click', cerrarModalSemi);
+    $('modalSemi').addEventListener('click', function(e){ if (e.target === this) cerrarModalSemi(); });
+    $('btnSemiGuardar').addEventListener('click', onGuardarSemiClick);
+
+    $('modalEliminarSemiCloseBtn').addEventListener('click', cerrarModalEliminarSemi);
+    $('btnEliminarSemiCancelar').addEventListener('click', cerrarModalEliminarSemi);
+    $('modalEliminarSemi').addEventListener('click', function(e){ if (e.target === this) cerrarModalEliminarSemi(); });
+    $('btnEliminarSemiConfirmar').addEventListener('click', onConfirmarEliminarSemi);
 
     /* Resultados / Podio */
     $('btnGuardarResultados').addEventListener('click', onGuardarResultadosClick);
