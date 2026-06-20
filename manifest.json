@@ -1,6 +1,6 @@
 {
-  "name": "Panel Verificador · XXIV Campeonato Regional del Sur",
-  "short_name": "Panel Verificador",
+  "name": "Resultados · XXIV Campeonato Regional del Sur",
+  "short_name": "Resultados",
   "description": "Panel de verificación y gestión de resultados del XXIV Campeonato Regional del Sur",
   "start_url": "./index.html",
   "scope": "./",
@@ -24,8 +24,8 @@
   ],
   "shortcuts": [
     {
-      "name": "Resultados",
-      "short_name": "Resultados",
+      "name": "Registro de Resultados",
+      "short_name": "Registro",
       "description": "Ir directo al registro de Resultados y Podio",
       "url": "./index.html#cardResultados",
       "icons": [
