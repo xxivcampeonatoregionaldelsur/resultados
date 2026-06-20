@@ -1,0 +1,37 @@
+{
+  "name": "Panel Verificador · XXIV Campeonato Regional del Sur",
+  "short_name": "Panel Verificador",
+  "description": "Panel de verificación y gestión de resultados del XXIV Campeonato Regional del Sur",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#07090f",
+  "theme_color": "#FFD700",
+  "lang": "es",
+  "dir": "ltr",
+  "icons": [
+    { "src": "icons/icon-72.png", "sizes": "72x72", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-96.png", "sizes": "96x96", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-128.png", "sizes": "128x128", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-144.png", "sizes": "144x144", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-152.png", "sizes": "152x152", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-384.png", "sizes": "384x384", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Resultados",
+      "short_name": "Resultados",
+      "description": "Ir directo al registro de Resultados y Podio",
+      "url": "./index.html#cardResultados",
+      "icons": [
+        { "src": "icons/icon-resultados-96.png", "sizes": "96x96", "type": "image/png" },
+        { "src": "icons/icon-resultados-192.png", "sizes": "192x192", "type": "image/png" }
+      ]
+    }
+  ]
+}
