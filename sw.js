@@ -1,4 +1,4 @@
-const CACHE_NAME = 'panel-verificador-v1';
+const CACHE_NAME = 'Resultados';
 const PRECACHE_URLS = [
   './',
   './index.html',
