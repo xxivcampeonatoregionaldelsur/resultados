@@ -158,7 +158,8 @@ table.partidos-table tr:hover td{background:rgba(255,215,0,.04);}
 .podio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:10px;}
 .podio-card{background:var(--field);color:var(--text);border-radius:6px;padding:16px;border:1px solid var(--border2);transition:border-color 0.2s;}
 .podio-card:hover{border-color:rgba(255,215,0,.5);}
-.podio-card-title{font-family:var(--font-h);font-weight:800;font-size:1rem;letter-spacing:1px;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px;text-transform:uppercase;}
+.podio-card-title{font-family:var(--font-h);font-weight:800;font-size:1rem;letter-spacing:1px;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px;text-transform:uppercase;flex-wrap:wrap;}
+.podio-cat-tag{font-family:var(--font-b);font-weight:600;font-size:.62rem;letter-spacing:.5px;text-transform:none;background:var(--bg);color:var(--muted);border:1px solid var(--border2);border-radius:4px;padding:2px 8px;}
 .podio-slot{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
 .podio-slot-icon{font-size:1.25rem;width:28px;text-align:center;flex-shrink:0;}
 .podio-slot-content{flex:1;}
@@ -950,7 +951,58 @@ table.ranking-table tr:hover td{background:rgba(255,215,0,.04);}
   var DELEGACIONES = {
     'AQP':'Arequipa','CUS':'Cusco','MDD':'Madre de Dios','JUL':'Juliaca','TAC':'Tacna'
   };
-  var DEPORTES_LISTA = ['Fútbol','Básquet','Vóley','Ajedrez'];
+  // NOTA: DEPORTES_LISTA fue retirada — el módulo de Resultados ahora usa
+  // PODIO_CATALOGO (Deporte+Categoria+Tipo), una lista FIJA y CERRADA.
+  // El podio NUNCA debe construir su lista de tarjetas a partir de lo que
+  // venga en la hoja: la hoja se valida CONTRA este catálogo, nunca al
+  // revés. Cualquier fila de la hoja cuyo Deporte+Categoria no calce con
+  // una de estas 18 combinaciones se ignora (no genera tarjeta nueva).
+
+  /* Catálogo único y cerrado del Podio — EXACTAMENTE 18 registros.
+     Confirmado por Jp, 2026-06-26. No agregar ni quitar combinaciones
+     aquí sin confirmación explícita: esta es la fuente de verdad para
+     qué tarjetas se muestran, en qué orden y con qué texto exacto. */
+  var PODIO_CATALOGO = [
+    { dep: 'Baloncesto',    cat: 'Hombres',        tipo: 'grupal' },
+    { dep: 'Baloncesto',    cat: 'Mujeres',        tipo: 'grupal' },
+    { dep: 'Danza',         cat: 'Grupal',         tipo: 'grupal' },
+    { dep: 'Fútbol',        cat: 'Fulbito Master', tipo: 'grupal' },
+    { dep: 'Fútbol',        cat: 'Libre Varones',  tipo: 'grupal' },
+    { dep: 'Fútbol',        cat: 'Libre Damas',    tipo: 'grupal' },
+    { dep: 'Sapo',          cat: 'Grupal',         tipo: 'grupal' },
+    { dep: 'Vóley Mixto',   cat: 'Mixto',          tipo: 'grupal' },
+    { dep: 'Ajedrez',       cat: 'Individual',     tipo: 'individual' },
+    { dep: 'Cubilete',      cat: 'Individual',     tipo: 'individual' },
+    { dep: '100 Metros',    cat: 'Varones',        tipo: 'individual' },
+    { dep: '100 Metros',    cat: 'Damas',          tipo: 'individual' },
+    { dep: 'Futbolín',      cat: 'Varones',        tipo: 'individual' },
+    { dep: 'Futbolín',      cat: 'Damas',          tipo: 'individual' },
+    { dep: 'Maratón',       cat: 'Varones',        tipo: 'individual' },
+    { dep: 'Maratón',       cat: 'Damas',          tipo: 'individual' },
+    { dep: 'Tenis de Mesa', cat: 'Varones',        tipo: 'individual' },
+    { dep: 'Tenis de Mesa', cat: 'Damas',          tipo: 'individual' }
+  ];
+
+  /* Clave única normalizada Deporte+Categoria: insensible a mayúsculas,
+     espacios repetidos Y tildes/acentos, para que una fila de la hoja
+     escrita como "futbol / libre varones" (sin tildes, otro case) calce
+     igual contra el catálogo "Fútbol / Libre Varones". */
+  function normalizarTexto(s) {
+    return (s || '').toString().trim().replace(/\s+/g, ' ')
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
+  }
+
+  function claveResultado(dep, cat) {
+    return normalizarTexto(dep) + '|' + normalizarTexto(cat);
+  }
+
+  /* Índice del catálogo por clave normalizada, para validar cada fila
+     de la hoja contra la lista fija (y nunca al revés). */
+  var PODIO_CATALOGO_INDEX = {};
+  PODIO_CATALOGO.forEach(function(c) {
+    c.key = claveResultado(c.dep, c.cat);
+    PODIO_CATALOGO_INDEX[c.key] = c;
+  });
 
   function nombreDelegacion(c) {
     if (!c) return '';
@@ -1339,17 +1391,44 @@ table.ranking-table tr:hover td{background:rgba(255,215,0,.04);}
       return;
     }
 
-    var deportes = DEPORTES_LISTA.slice();
-    var dataMap  = {};
+    /* dataMap se indexa por la clave normalizada Deporte+Categoria del
+       CATÁLOGO (PODIO_CATALOGO_INDEX), nunca por lo que llegue suelto en
+       la hoja. Toda fila se valida contra el catálogo fijo; si su
+       Deporte+Categoria no calza con ninguna de las 18 combinaciones
+       permitidas, se descarta (no genera tarjeta y no reemplaza ninguna
+       existente). Esto evita deportes/categorías incorrectos y evita
+       duplicados por variaciones de nombre. */
+    var dataMap = {};
+
     (data || []).forEach(function(row) {
-      var dep = (row.Deporte || '').trim();
-      if (dep) {
-        if (!dataMap[dep]) dataMap[dep] = row;
-        if (deportes.indexOf(dep) < 0) deportes.push(dep);
+      var dep = (row.Deporte   || '').trim();
+      var cat = (row.Categoria || '').trim();
+      if (!dep) return; // fila sin deporte: se ignora
+
+      var key = claveResultado(dep, cat);
+      if (!PODIO_CATALOGO_INDEX[key]) {
+        // Fila fuera del catálogo permitido: se ignora por completo.
+        console.warn('[PODIO] Fila ignorada (no está en el catálogo de 18): ' + dep + ' / ' + cat);
+        return;
       }
+      if (!dataMap[key]) {
+        dataMap[key] = row;
+      }
+      // Si hubiera dos filas con EXACTAMENTE el mismo Deporte+Categoria
+      // (duplicado real en la hoja), aquí se queda con la primera. Si
+      // prefieres quedarte con la última, cambia el `if` por una
+      // asignación directa fuera del if.
     });
 
-    var iconos = { 'Fútbol':'⚽', 'Básquet':'🏀', 'Vóley':'🏐', 'Ajedrez':'♟️' };
+    /* La lista a renderizar es SIEMPRE el catálogo fijo completo (18
+       elementos, en este orden exacto), tenga o no fila en la hoja. */
+    var combos = PODIO_CATALOGO;
+
+    var iconos = {
+      'Fútbol':'⚽', 'Baloncesto':'🏀', 'Vóley Mixto':'🏐', 'Ajedrez':'♟️',
+      'Maratón':'🏃', '100 Metros':'⏱️', 'Futbolín':'🕹️', 'Tenis de Mesa':'🏓',
+      'Danza':'💃', 'Sapo':'🐸', 'Cubilete':'🎲'
+    };
     var puestos = [
       { pos:'Pos1', icono:'🥇', label:'1° Lugar' },
       { pos:'Pos2', icono:'🥈', label:'2° Lugar' },
@@ -1359,9 +1438,9 @@ table.ranking-table tr:hover td{background:rgba(255,215,0,.04);}
     ];
     var opciones = ['', 'AQP', 'CUS', 'MDD', 'JUL', 'TAC'];
 
-    grid.innerHTML = deportes.map(function(dep) {
-      var row  = dataMap[dep] || {};
-      var icon = iconos[dep] || '🏆';
+    grid.innerHTML = combos.map(function(c) {
+      var row  = dataMap[c.key] || {};
+      var icon = iconos[c.dep] || '🏆';
 
       var slotsHtml = puestos.map(function(p) {
         var val  = (row[p.pos] || '').trim().toUpperCase();
@@ -1379,8 +1458,13 @@ table.ranking-table tr:hover td{background:rgba(255,215,0,.04);}
         '</div>';
       }).join('');
 
-      return '<div class="podio-card" data-disciplina="' + escHtml(dep) + '">' +
-        '<div class="podio-card-title">' + icon + ' ' + escHtml(dep) + '</div>' +
+      var tagCat = c.cat ? ' <span class="podio-cat-tag">' + escHtml(c.cat) + '</span>' : '';
+
+      /* data-deporte y data-categoria (en vez de un único data-disciplina)
+         para que el guardado pueda enviar AMBOS campos al backend.
+         data-tipo (grupal/individual) viene fijo del catálogo. */
+      return '<div class="podio-card" data-deporte="' + escHtml(c.dep) + '" data-categoria="' + escHtml(c.cat) + '" data-tipo="' + escHtml(c.tipo) + '">' +
+        '<div class="podio-card-title">' + icon + ' ' + escHtml(c.dep) + tagCat + '</div>' +
         slotsHtml +
       '</div>';
     }).join('');
@@ -2131,8 +2215,9 @@ table.ranking-table tr:hover td{background:rgba(255,215,0,.04);}
 
     var seleccion = [];
     cards.forEach(function(card) {
-      var disc = card.getAttribute('data-disciplina');
-      var obj  = { Deporte: disc };
+      var dep = card.getAttribute('data-deporte');
+      var cat = card.getAttribute('data-categoria');
+      var obj = { Deporte: dep, Categoria: cat }; // Categoria SIEMPRE incluida (aunque sea '')
       card.querySelectorAll('.podio-sel').forEach(function(sel) {
         var pos = sel.getAttribute('data-pos');
         obj[pos] = sel.value;
